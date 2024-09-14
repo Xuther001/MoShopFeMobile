@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom';
 import ProductList from '../ProductList/ProductList';
 import './HomePage.css';
 
-const HomePage = () => {
+function HomePage() {
   return (
     <div className="home-page">
+      <Link to="/register" className="signup-link">Sign Up</Link>
+      <Link to="/login" className="login-link">Login</Link>
       <ProductList />
-      <Link to="/register" className="signup-link">Sign up</Link>
     </div>
   );
-};
+}
 
 export default HomePage;
