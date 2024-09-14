@@ -28,14 +28,17 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:8080/api/v1/auth/register', formData);
-      console.log('Registration successful:', response.data);
-      alert('Registration successful');
+        const response = await axios.post('http://localhost:8080/api/v1/auth/register', formData);
+        const { token, username } = response.data;
+        localStorage.setItem('token', token);
+        localStorage.setItem('username', username);
+        console.log('Registration successful:', response.data);
+        alert('Registration successful');
     } catch (error) {
-      console.error('Error during registration:', error.response?.data || error.message);
-      alert('Registration failed');
+        console.error('Error during registration:', error.response?.data || error.message);
+        alert('Registration failed');
     }
-  };
+};
 
   return (
     <div className="registration-container">
