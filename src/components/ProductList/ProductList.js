@@ -10,7 +10,7 @@ const ProductList = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('/api/products'); // Use relative URL
+        const response = await axios.get('/api/products');
         setProducts(response.data);
       } catch (err) {
         setError(err.message);
