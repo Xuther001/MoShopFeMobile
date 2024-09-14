@@ -6,14 +6,21 @@
     border-radius: 5px;
     width: 300px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
   }
   
   h2 {
     text-align: center;
   }
   
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
   form div {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
   }
   
   label {
