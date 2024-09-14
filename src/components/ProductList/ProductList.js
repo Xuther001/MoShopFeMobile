@@ -45,6 +45,7 @@ const ProductList = () => {
               className="product-item"
               onClick={() => handleProductClick(product.id)}
             >
+              <img src={product.imageUrl} alt={product.name} className="product-image" />
               <h2>{product.name}</h2>
               <p>{product.description}</p>
               <p>Price: ${product.price}</p>
