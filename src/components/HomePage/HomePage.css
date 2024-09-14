@@ -1,0 +1,18 @@
+.home-page {
+  padding: 20px;
+}
+
+.signup-link {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.signup-link:hover {
+  background-color: #45a049;
+}
