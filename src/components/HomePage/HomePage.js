@@ -6,12 +6,15 @@ import './HomePage.css';
 function HomePage() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if (token) {
+    const storedUsername = localStorage.getItem('username');
+    if (token && storedUsername) {
       setIsLoggedIn(true);
+      setUsername(storedUsername);
     }
   }, []);
 
@@ -22,6 +25,12 @@ function HomePage() {
     navigate('/');
   };
 
+  const handleCartClick = () => {
+    if (username) {
+      navigate('/cart/${username}');
+    }
+  }
+
   return (
     <div className="home-page">
       <div className="auth-buttons">
@@ -31,7 +40,10 @@ function HomePage() {
             <Link to="/register" className="signup-link">Sign Up</Link>
           </>
         ) : (
+          <>
           <button className="logout-button" onClick={handleLogout}>Log Out</button>
+          <button className="mycart-button" onClick={handleCartClick}>My Cart</button>
+          </>
         )}
       </div>
       <ProductList />
