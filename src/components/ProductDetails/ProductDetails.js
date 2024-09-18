@@ -7,6 +7,9 @@ const ProductDetails = ({ productId, onClose }) => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [quantity, setQuantity] = useState(1);
+  const username = localStorage.getItem('username');
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -28,6 +31,29 @@ const ProductDetails = ({ productId, onClose }) => {
     }
   }, [productId]);
 
+  const handleAddToCart = async () => {
+    if (!token) {
+      alert('You are not authenticated. Please log in.');
+      return;
+    }
+  
+    try {
+      await axios.post(`/cart/add`, {
+        username,
+        productId,
+        quantity
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      alert('Product added to cart!');
+    } catch (err) {
+      console.error(err); // Log the error for debugging
+      setError('Failed to add product to cart.');
+    }
+  };
+
   if (loading) return <div>Loading product details...</div>;
   if (error) return <div>Error: {error}</div>;
   if (!product) return null;
@@ -39,7 +65,21 @@ const ProductDetails = ({ productId, onClose }) => {
       <p>{product.description}</p>
       <p>Price: ${product.price}</p>
       <p>Stock: {product.stock}</p>
-      
+
+      <div className="quantity-selector">
+        <label htmlFor="quantity">Quantity:</label>
+        <input
+          type="number"
+          id="quantity"
+          name="quantity"
+          value={quantity}
+          onChange={(e) => setQuantity(parseInt(e.target.value))}
+          min="1"
+        />
+      </div>
+
+      <button onClick={handleAddToCart} className="add-to-cart-btn">Add to Cart</button>
+
       <div className="reviews-section">
         <h3>Customer Reviews</h3>
         {reviews.length ? (
