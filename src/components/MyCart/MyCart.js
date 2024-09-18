@@ -16,7 +16,7 @@ function MyCart() {
             Authorization: `Bearer ${token}`
           }
         });
-        setCartItems(response.data.cartItems);
+        setCartItems(response.data.cartItems || []);
       } catch (err) {
         setError(err.message);
       }

@@ -37,6 +37,11 @@ const ProductDetails = ({ productId, onClose }) => {
       return;
     }
   
+    if (quantity > product.stock) {
+      alert(`Quantity exceeds available stock. Only ${product.stock} item(s) left in stock.`);
+      return;
+    }
+  
     try {
       await axios.post(`/cart/add`, {
         username,
@@ -48,11 +53,15 @@ const ProductDetails = ({ productId, onClose }) => {
         }
       });
       alert('Product added to cart!');
+  
+      const updatedProduct = await axios.get(`/api/products/${productId}`);
+      setProduct(updatedProduct.data);
+  
     } catch (err) {
-      console.error(err); // Log the error for debugging
+      console.error(err);
       setError('Failed to add product to cart.');
     }
-  };
+  };  
 
   if (loading) return <div>Loading product details...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -75,6 +84,7 @@ const ProductDetails = ({ productId, onClose }) => {
           value={quantity}
           onChange={(e) => setQuantity(parseInt(e.target.value))}
           min="1"
+          max={product.stock}
         />
       </div>
 
