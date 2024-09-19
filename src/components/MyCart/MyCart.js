@@ -4,6 +4,7 @@ import './MyCart.css';
 
 function MyCart() {
   const [cartItems, setCartItems] = useState([]);
+  const [quantityInput, setQuantityInput] = useState({});
   const [error, setError] = useState(null);
   const username = localStorage.getItem('username');
   const token = localStorage.getItem('token');
@@ -17,6 +18,11 @@ function MyCart() {
           }
         });
         setCartItems(response.data.cartItems || []);
+        const initialQuantities = {};
+        response.data.cartItems.forEach(item => {
+          initialQuantities[item.productId] = item.quantity;
+        });
+        setQuantityInput(initialQuantities);
       } catch (err) {
         setError(err.message);
       }
@@ -51,9 +57,28 @@ function MyCart() {
   };
 
   const handleInputChange = (event, productId) => {
-    const newQuantity = parseInt(event.target.value, 10);
-    if (!isNaN(newQuantity)) {
-      handleQuantityChange(productId, newQuantity);
+    const newQuantity = event.target.value;
+
+    setQuantityInput({
+      ...quantityInput,
+      [productId]: newQuantity,
+    });
+  };
+
+  const handleInputBlur = (productId) => {
+    const newQuantity = quantityInput[productId];
+
+    if (newQuantity === '') {
+      const currentItem = cartItems.find(item => item.productId === productId);
+      setQuantityInput({
+        ...quantityInput,
+        [productId]: currentItem.quantity,
+      });
+    } else {
+      const parsedQuantity = parseInt(newQuantity, 10);
+      if (!isNaN(parsedQuantity)) {
+        handleQuantityChange(productId, parsedQuantity);
+      }
     }
   };
 
@@ -97,9 +122,10 @@ function MyCart() {
                 <p className="item-label">Quantity:</p>
                 <input
                   type="number"
-                  value={item.quantity}
+                  value={quantityInput[item.productId] || ''}
                   min="1"
                   onChange={(e) => handleInputChange(e, item.productId)}
+                  onBlur={() => handleInputBlur(item.productId)} // Validate on blur
                 />
               </div>
               <div className="price-row">
