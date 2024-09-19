@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from '../../configs/axiosConfig';
 import './MyCart.css';
 
@@ -8,6 +9,7 @@ function MyCart() {
   const [error, setError] = useState(null);
   const username = localStorage.getItem('username');
   const token = localStorage.getItem('token');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCart = async () => {
@@ -21,11 +23,9 @@ function MyCart() {
         setCartItems(fetchedCartItems);
 
         const initialQuantities = {};
-        if (Array.isArray(fetchedCartItems)) {
-          fetchedCartItems.forEach(item => {
-            initialQuantities[item.productId] = item.quantity;
-          });
-        }
+        fetchedCartItems.forEach(item => {
+          initialQuantities[item.productId] = item.quantity;
+        });
         setQuantityInput(initialQuantities);
       } catch (err) {
         setError("Failed to fetch cart. Please try again later.");
@@ -54,17 +54,7 @@ function MyCart() {
           Authorization: `Bearer ${token}`
         }
       });
-      const updatedCartItems = response.data.cartItems || [];
-      setCartItems(updatedCartItems);
-
-      // Update quantityInput
-      const updatedQuantities = {};
-      if (Array.isArray(updatedCartItems)) {
-        updatedCartItems.forEach(item => {
-          updatedQuantities[item.productId] = item.quantity;
-        });
-      }
-      setQuantityInput(updatedQuantities);
+      setCartItems(response.data.cartItems || []);
     } catch (err) {
       setError("Error updating quantity. Please try again.");
       console.error("Error updating quantity:", err);
@@ -72,35 +62,21 @@ function MyCart() {
   };
 
   const handleInputChange = (event, productId) => {
-    const newQuantity = event.target.value;
-    setQuantityInput(prevInput => ({
-      ...prevInput,
-      [productId]: newQuantity,
-    }));
+    setQuantityInput({
+      ...quantityInput,
+      [productId]: event.target.value
+    });
   };
 
   const handleInputBlur = (productId) => {
-    const newQuantity = quantityInput[productId];
-
-    if (newQuantity === '') {
-      const currentItem = cartItems.find(item => item.productId === productId);
-      setQuantityInput(prevInput => ({
-        ...prevInput,
-        [productId]: currentItem ? currentItem.quantity : 1,
-      }));
-    } else {
-      const parsedQuantity = parseInt(newQuantity, 10);
-      if (!isNaN(parsedQuantity)) {
-        handleQuantityChange(productId, parsedQuantity);
-      }
+    const newQuantity = parseInt(quantityInput[productId], 10);
+    if (!isNaN(newQuantity)) {
+      handleQuantityChange(productId, newQuantity);
     }
   };
 
   const handleRemoveFromCart = async (productId) => {
     try {
-      if (!productId) {
-        throw new Error("Product ID is missing");
-      }
       await axios.post(`/cart/remove`, null, {
         params: { productId },
         headers: {
@@ -112,11 +88,27 @@ function MyCart() {
           Authorization: `Bearer ${token}`
         }
       });
-      const updatedCartItems = response.data.cartItems || [];
-      setCartItems(updatedCartItems);
+      setCartItems(response.data.cartItems || []);
     } catch (err) {
       setError("Error removing item from cart. Please try again.");
       console.error("Error removing from cart:", err);
+    }
+  };
+
+  const handleCheckout = async () => {
+    try {
+      await axios.post(`/invoice/checkout`, null, {
+        params: { username },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      alert("Purchase successful!");
+      setCartItems([]);
+      navigate('/');
+    } catch (err) {
+      setError("Error during checkout. Please try again.");
+      console.error("Checkout error:", err);
     }
   };
 
@@ -126,36 +118,44 @@ function MyCart() {
     <div className="my-cart-container">
       <h2>My Cart</h2>
       {cartItems.length > 0 ? (
-        cartItems.map((item) => (
-          <div key={item.productId} className="cart-item">
-            <img src={item.productImageUrl} alt={item.productName} />
-            <div className="cart-item-details">
-              <p className="item-value item-name">{item.productName}</p>
-              <p className="item-label">Description:</p>
-              <p className="item-value item-description">{item.productDescription}</p>
-              <div className="quantity-row">
-                <p className="item-label">Quantity:</p>
-                <input
-                  type="number"
-                  value={quantityInput[item.productId] || ''}
-                  min="1"
-                  onChange={(e) => handleInputChange(e, item.productId)}
-                  onBlur={() => handleInputBlur(item.productId)}
-                />
+        <>
+          {cartItems.map((item) => (
+            <div key={item.productId} className="cart-item">
+              <img src={item.productImageUrl} alt={item.productName} />
+              <div className="cart-item-details">
+                <p className="item-value item-name">{item.productName}</p>
+                <p className="item-label">Description:</p>
+                <p className="item-value item-description">{item.productDescription}</p>
+                <div className="quantity-row">
+                  <p className="item-label">Quantity:</p>
+                  <input
+                    type="number"
+                    value={quantityInput[item.productId] || ''}
+                    min="1"
+                    onChange={(e) => handleInputChange(e, item.productId)}
+                    onBlur={() => handleInputBlur(item.productId)}
+                  />
+                </div>
+                <div className="price-row">
+                  <p className="item-label">Total Price:</p>
+                  <p className="item-value item-price">${item.totalPrice.toFixed(2)}</p>
+                </div>
+                <button 
+                  className="remove-button"
+                  onClick={() => handleRemoveFromCart(item.productId)}
+                >
+                  Remove
+                </button>
               </div>
-              <div className="price-row">
-                <p className="item-label">Total Price:</p>
-                <p className="item-value item-price">${item.totalPrice.toFixed(2)}</p>
-              </div>
-              <button 
-                className="remove-button"
-                onClick={() => handleRemoveFromCart(item.productId)}
-              >
-                Remove
-              </button>
             </div>
-          </div>
-        ))
+          ))}
+          <button 
+            className="checkout-button" 
+            onClick={handleCheckout}
+          >
+            Purchase
+          </button>
+        </>
       ) : (
         <p className="empty-cart-message">Your cart is empty.</p>
       )}
