@@ -17,14 +17,19 @@ function MyCart() {
             Authorization: `Bearer ${token}`
           }
         });
-        setCartItems(response.data.cartItems || []);
+        const fetchedCartItems = response.data.cartItems || [];
+        setCartItems(fetchedCartItems);
+
         const initialQuantities = {};
-        response.data.cartItems.forEach(item => {
-          initialQuantities[item.productId] = item.quantity;
-        });
+        if (Array.isArray(fetchedCartItems)) {
+          fetchedCartItems.forEach(item => {
+            initialQuantities[item.productId] = item.quantity;
+          });
+        }
         setQuantityInput(initialQuantities);
       } catch (err) {
-        setError(err.message);
+        setError("Failed to fetch cart. Please try again later.");
+        console.error("Error fetching cart:", err);
       }
     };
 
@@ -49,20 +54,29 @@ function MyCart() {
           Authorization: `Bearer ${token}`
         }
       });
-      setCartItems(response.data.cartItems || []);
+      const updatedCartItems = response.data.cartItems || [];
+      setCartItems(updatedCartItems);
+
+      // Update quantityInput
+      const updatedQuantities = {};
+      if (Array.isArray(updatedCartItems)) {
+        updatedCartItems.forEach(item => {
+          updatedQuantities[item.productId] = item.quantity;
+        });
+      }
+      setQuantityInput(updatedQuantities);
     } catch (err) {
+      setError("Error updating quantity. Please try again.");
       console.error("Error updating quantity:", err);
-      setError(err.message);
     }
   };
 
   const handleInputChange = (event, productId) => {
     const newQuantity = event.target.value;
-
-    setQuantityInput({
-      ...quantityInput,
+    setQuantityInput(prevInput => ({
+      ...prevInput,
       [productId]: newQuantity,
-    });
+    }));
   };
 
   const handleInputBlur = (productId) => {
@@ -70,10 +84,10 @@ function MyCart() {
 
     if (newQuantity === '') {
       const currentItem = cartItems.find(item => item.productId === productId);
-      setQuantityInput({
-        ...quantityInput,
-        [productId]: currentItem.quantity,
-      });
+      setQuantityInput(prevInput => ({
+        ...prevInput,
+        [productId]: currentItem ? currentItem.quantity : 1,
+      }));
     } else {
       const parsedQuantity = parseInt(newQuantity, 10);
       if (!isNaN(parsedQuantity)) {
@@ -98,10 +112,11 @@ function MyCart() {
           Authorization: `Bearer ${token}`
         }
       });
-      setCartItems(response.data.cartItems || []);
+      const updatedCartItems = response.data.cartItems || [];
+      setCartItems(updatedCartItems);
     } catch (err) {
+      setError("Error removing item from cart. Please try again.");
       console.error("Error removing from cart:", err);
-      setError(err.message);
     }
   };
 
@@ -112,7 +127,7 @@ function MyCart() {
       <h2>My Cart</h2>
       {cartItems.length > 0 ? (
         cartItems.map((item) => (
-          <div key={item.productName} className="cart-item">
+          <div key={item.productId} className="cart-item">
             <img src={item.productImageUrl} alt={item.productName} />
             <div className="cart-item-details">
               <p className="item-value item-name">{item.productName}</p>
@@ -125,7 +140,7 @@ function MyCart() {
                   value={quantityInput[item.productId] || ''}
                   min="1"
                   onChange={(e) => handleInputChange(e, item.productId)}
-                  onBlur={() => handleInputBlur(item.productId)} // Validate on blur
+                  onBlur={() => handleInputBlur(item.productId)}
                 />
               </div>
               <div className="price-row">
