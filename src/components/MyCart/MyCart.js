@@ -25,8 +25,39 @@ function MyCart() {
     fetchCart();
   }, [username, token]);
 
+  const handleQuantityChange = async (productId, newQuantity) => {
+    try {
+      if (newQuantity <= 0) {
+        throw new Error("Quantity must be greater than zero");
+      }
+
+      await axios.post(`/cart/update`, null, {
+        params: { productId, quantity: newQuantity },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      const response = await axios.get(`/cart/${username}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setCartItems(response.data.cartItems || []);
+    } catch (err) {
+      console.error("Error updating quantity:", err);
+      setError(err.message);
+    }
+  };
+
+  const handleInputChange = (event, productId) => {
+    const newQuantity = parseInt(event.target.value, 10);
+    if (!isNaN(newQuantity)) {
+      handleQuantityChange(productId, newQuantity);
+    }
+  };
+
   const handleRemoveFromCart = async (productId) => {
-    console.log(productId, username);
     try {
       if (!productId) {
         throw new Error("Product ID is missing");
@@ -64,7 +95,12 @@ function MyCart() {
               <p className="item-value item-description">{item.productDescription}</p>
               <div className="quantity-row">
                 <p className="item-label">Quantity:</p>
-                <p className="item-value item-quantity">{item.quantity}</p>
+                <input
+                  type="number"
+                  value={item.quantity}
+                  min="1"
+                  onChange={(e) => handleInputChange(e, item.productId)}
+                />
               </div>
               <div className="price-row">
                 <p className="item-label">Total Price:</p>
