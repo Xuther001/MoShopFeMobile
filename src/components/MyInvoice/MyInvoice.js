@@ -25,6 +25,10 @@ function MyInvoice() {
     fetchInvoices();
   }, [username, token]);
 
+  const formatDate = (dateArray) => {
+    return new Date(...dateArray).toLocaleString();
+  };
+
   if (error) return <div>Error: {error}</div>;
 
   return (
@@ -34,7 +38,7 @@ function MyInvoice() {
         invoices.map((invoice) => (
           <div key={invoice.id} className="invoice-card">
             <h3>Invoice ID: {invoice.id}</h3>
-            <p><strong>Purchase Date:</strong> {new Date(invoice.purchaseDate).toLocaleString()}</p>
+            <p><strong>Purchase Date:</strong> {formatDate(invoice.purchaseDate)}</p>
             <p><strong>Total Price:</strong> ${invoice.totalPrice.toFixed(2)}</p>
             <p><strong>Payment Status:</strong> {invoice.paymentStatus}</p>
             <div className="invoice-items">
@@ -42,7 +46,7 @@ function MyInvoice() {
               <ul>
                 {invoice.items.map(item => (
                   <li key={item.id}>
-                    Product ID: {item.productId}, Quantity: {item.quantity}, Total Price: ${item.totalPrice.toFixed(2)}
+                    <strong>{item.productName}</strong> - Quantity: {item.quantity}, Total Price: ${item.totalPrice.toFixed(2)}
                   </li>
                 ))}
               </ul>
