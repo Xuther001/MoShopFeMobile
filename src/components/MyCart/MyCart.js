@@ -26,6 +26,7 @@ function MyCart() {
   }, [username, token]);
 
   const handleRemoveFromCart = async (productId) => {
+    console.log(productId, username);
     try {
       if (!productId) {
         throw new Error("Product ID is missing");
