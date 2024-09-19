@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate  } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ProductList from '../ProductList/ProductList';
 import './HomePage.css';
 
 function HomePage() {
-
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState(null);
   const navigate = useNavigate();
@@ -27,9 +26,15 @@ function HomePage() {
 
   const handleCartClick = () => {
     if (username) {
-      navigate('/cart/${username}');
+      navigate(`/cart/${username}`);
     }
-  }
+  };
+
+  const handleInvoiceClick = () => {
+    if (username) {
+      navigate(`/invoice/${username}`);
+    }
+  };
 
   return (
     <div className="home-page">
@@ -41,8 +46,9 @@ function HomePage() {
           </>
         ) : (
           <>
-          <button className="logout-button" onClick={handleLogout}>Log Out</button>
-          <button className="mycart-button" onClick={handleCartClick}>My Cart</button>
+            <button className="logout-button" onClick={handleLogout}>Log Out</button>
+            <button className="mycart-button" onClick={handleCartClick}>My Cart</button>
+            <button className="myinvoice-button" onClick={handleInvoiceClick}>My Invoices</button>
           </>
         )}
       </div>

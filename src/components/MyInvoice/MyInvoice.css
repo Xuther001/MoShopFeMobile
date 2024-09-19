@@ -1,0 +1,26 @@
+.my-invoice-container {
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+  }
+  
+  .invoice-card {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .invoice-card h3 {
+    margin-top: 0;
+  }
+  
+  .invoice-items ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .invoice-items li {
+    margin-bottom: 5px;
+  }  
