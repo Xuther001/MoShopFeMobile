@@ -86,3 +86,17 @@
   font-size: 1.2em;
   color: #777;
 }
+
+.remove-button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.remove-button:hover {
+  background-color: #c62828;
+}

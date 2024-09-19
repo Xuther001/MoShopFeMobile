@@ -25,6 +25,29 @@ function MyCart() {
     fetchCart();
   }, [username, token]);
 
+  const handleRemoveFromCart = async (productId) => {
+    try {
+      if (!productId) {
+        throw new Error("Product ID is missing");
+      }
+      await axios.post(`/cart/remove`, null, {
+        params: { productId },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      const response = await axios.get(`/cart/${username}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setCartItems(response.data.cartItems || []);
+    } catch (err) {
+      console.error("Error removing from cart:", err);
+      setError(err.message);
+    }
+  };
+
   if (error) return <div>Error: {error}</div>;
 
   return (
@@ -46,6 +69,12 @@ function MyCart() {
                 <p className="item-label">Total Price:</p>
                 <p className="item-value item-price">${item.totalPrice.toFixed(2)}</p>
               </div>
+              <button 
+                className="remove-button"
+                onClick={() => handleRemoveFromCart(item.productId)}
+              >
+                Remove
+              </button>
             </div>
           </div>
         ))
