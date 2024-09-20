@@ -6,6 +6,7 @@ import './Login.css';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [userId] = useState('');
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -16,10 +17,12 @@ const Login = () => {
       const response = await axios.post('/api/v1/auth/authenticate', {
         username,
         password,
+        userId
       });
       
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('username', response.data.username);
+      localStorage.setItem('userId', response.data.userId);
       
       navigate('/');
     } catch (err) {

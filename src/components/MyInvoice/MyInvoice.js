@@ -18,7 +18,6 @@ function MyInvoice() {
         setInvoices(response.data);
       } catch (err) {
         console.error(err);
-        // You can choose to handle errors here if needed
       }
     };
 

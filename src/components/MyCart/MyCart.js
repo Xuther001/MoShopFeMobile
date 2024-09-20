@@ -9,12 +9,13 @@ function MyCart() {
   const [error, setError] = useState(null);
   const username = localStorage.getItem('username');
   const token = localStorage.getItem('token');
+  const userId = parseInt(localStorage.getItem('userId'), 10);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        const response = await axios.get(`/cart/${username}`, {
+        const response = await axios.get(`/cart/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -34,7 +35,7 @@ function MyCart() {
     };
 
     fetchCart();
-  }, [username, token]);
+  }, [username, token, userId]);
 
   const handleQuantityChange = async (productId, newQuantity) => {
     try {
@@ -49,7 +50,7 @@ function MyCart() {
         }
       });
 
-      const response = await axios.get(`/cart/${username}`, {
+      const response = await axios.get(`/cart/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -83,7 +84,7 @@ function MyCart() {
           Authorization: `Bearer ${token}`
         }
       });
-      const response = await axios.get(`/cart/${username}`, {
+      const response = await axios.get(`/cart/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }

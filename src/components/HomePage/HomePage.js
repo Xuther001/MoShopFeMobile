@@ -20,6 +20,7 @@ function HomePage() {
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('username');
+    localStorage.removeItem('userId');
     setIsLoggedIn(false);
     navigate('/');
   };
@@ -36,6 +37,12 @@ function HomePage() {
     }
   };
 
+  const handleProfileClick = () => {
+    if (username) {
+      navigate(`/profile/${username}`);
+    }
+  };
+
   return (
     <div className="home-page">
       <div className="auth-buttons">
@@ -49,6 +56,7 @@ function HomePage() {
             <button className="logout-button" onClick={handleLogout}>Log Out</button>
             <button className="mycart-button" onClick={handleCartClick}>My Cart</button>
             <button className="myinvoice-button" onClick={handleInvoiceClick}>My Invoices</button>
+            <button className="myprofile-button" onClick={handleProfileClick}>My Profile</button>
           </>
         )}
       </div>
