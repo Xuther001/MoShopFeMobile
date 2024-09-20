@@ -6,11 +6,12 @@ function MyInvoice() {
   const [invoices, setInvoices] = useState([]);
   const username = localStorage.getItem('username');
   const token = localStorage.getItem('token');
+  const userId = parseInt(localStorage.getItem('userId'));
 
   useEffect(() => {
     const fetchInvoices = async () => {
       try {
-        const response = await axios.get(`/invoice/${username}`, {
+        const response = await axios.get(`/invoice/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -22,7 +23,7 @@ function MyInvoice() {
     };
 
     fetchInvoices();
-  }, [username, token]);
+  }, [username, token, userId]);
 
   const formatDate = (dateArray) => {
     return new Date(...dateArray).toLocaleString();
