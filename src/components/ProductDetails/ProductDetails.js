@@ -56,6 +56,8 @@ const ProductDetails = ({ productId, onClose }) => {
   
       const updatedProduct = await axios.get(`/api/products/${productId}`);
       setProduct(updatedProduct.data);
+
+      onClose();
   
     } catch (err) {
       console.error(err);

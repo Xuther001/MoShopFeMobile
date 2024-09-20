@@ -4,7 +4,6 @@ import './MyInvoice.css';
 
 function MyInvoice() {
   const [invoices, setInvoices] = useState([]);
-  const [error, setError] = useState(null);
   const username = localStorage.getItem('username');
   const token = localStorage.getItem('token');
 
@@ -18,7 +17,8 @@ function MyInvoice() {
         });
         setInvoices(response.data);
       } catch (err) {
-        setError(err.message);
+        console.error(err);
+        // You can choose to handle errors here if needed
       }
     };
 
@@ -28,8 +28,6 @@ function MyInvoice() {
   const formatDate = (dateArray) => {
     return new Date(...dateArray).toLocaleString();
   };
-
-  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="my-invoice-container">
@@ -54,7 +52,7 @@ function MyInvoice() {
           </div>
         ))
       ) : (
-        <p>No invoices found.</p>
+        <p className="centered-message">You have yet to make a purchase.</p>
       )}
     </div>
   );
