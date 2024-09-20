@@ -1,38 +1,49 @@
-// src/components/MyProfile/MyProfile.js
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import axios from '../../configs/axiosConfig';
 import './MyProfile.css';
 
-function MyProfile() {
-  const [profileData, setProfileData] = useState(null);
-  const username = localStorage.getItem('username');
+const MyProfile = () => {
+  const [addresses, setAddresses] = useState([]);
+  const userId = localStorage.getItem('userId');
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
-    if (username) {
-      axios.get(`http://localhost:8080/api/users/${username}`)
-        .then(response => {
-          setProfileData(response.data);
-        })
-        .catch(error => {
-          console.error('Error fetching profile data:', error);
+    const fetchAddresses = async () => {
+      try {
+        const response = await axios.get(`/api/users/${userId}/address`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
         });
-    }
-  }, [username]);
+        setAddresses(response.data);
+      } catch (error) {
+        console.error('Error fetching addresses:', error);
+      }
+    };
 
-  if (!profileData) {
-    return <div>Loading profile...</div>;
-  }
+    fetchAddresses();
+  }, [userId, token]);
 
   return (
-    <div className="profile-container">
-      <h1>My Profile</h1>
-      <p><strong>Username:</strong> {profileData.username}</p>
-      <p><strong>Email:</strong> {profileData.email}</p>
-      <p><strong>First Name:</strong> {profileData.firstName}</p>
-      <p><strong>Last Name:</strong> {profileData.lastName}</p>
-      <p><strong>Address:</strong> {profileData.address}</p>
+    <div className="my-profile-container">
+      <h2>My Profile</h2>
+      {addresses.length > 0 ? (
+        <div className="address-list">
+          {addresses.map((address) => (
+            <div key={address.id} className="address-card">
+              <p><strong>Street Address:</strong> {address.streetAddress}</p>
+              <p><strong>City:</strong> {address.city}</p>
+              <p><strong>State:</strong> {address.state}</p>
+              <p><strong>Postal Code:</strong> {address.postalCode}</p>
+              <p><strong>Country:</strong> {address.country}</p>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p>No addresses found.</p>
+      )}
     </div>
   );
-}
+};
 
 export default MyProfile;

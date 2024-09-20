@@ -5,6 +5,7 @@ import Register from './components/UserRegistration/Register';
 import Login from './components/Login/Login';
 import MyCart from './components/MyCart/MyCart';
 import MyInvoice from './components/MyInvoice/MyInvoice';
+import MyProfile from './components/MyProfile/MyProfile';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cart/:username" element={<MyCart />} />
+        <Route path="/profile/:username" element={<MyProfile />} />
       </Routes>
     </Router>
   );
