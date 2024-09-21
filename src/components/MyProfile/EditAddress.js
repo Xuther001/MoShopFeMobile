@@ -15,26 +15,27 @@ const EditAddress = ({ userAddress, onUpdate, onCancel }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const updatedAddress = {
-      streetAddress,
-      city,
-      state,
-      postalCode,
-      country,
-      user: { 
-        id: userId,
-        username: localStorage.getItem('username')
-      } 
+      userAddresses: [
+        {
+          id: userAddress.id,
+          streetAddress,
+          city,
+          state,
+          postalCode,
+          country,
+        }
+      ]
     };
 
     try {
-      await axios.put(`/api/users/${userId}`, updatedAddress, {
+      const response = await axios.put(`/api/users/${userId}`, updatedAddress, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-      onUpdate(updatedAddress);
+      onUpdate(response.data);
     } catch (err) {
-      console.error(err);
+      console.error("Error updating address:", err);
     }
   };
 
@@ -43,26 +44,58 @@ const EditAddress = ({ userAddress, onUpdate, onCancel }) => {
       <h2>Edit Address</h2>
       <div className="form-group">
         <label htmlFor="streetAddress">Street Address</label>
-        <input type="text" id="streetAddress" value={streetAddress} onChange={(e) => setStreetAddress(e.target.value)} required />
+        <input
+          type="text"
+          id="streetAddress"
+          value={streetAddress}
+          onChange={(e) => setStreetAddress(e.target.value)}
+          required
+        />
       </div>
       <div className="form-group">
         <label htmlFor="city">City</label>
-        <input type="text" id="city" value={city} onChange={(e) => setCity(e.target.value)} required />
+        <input
+          type="text"
+          id="city"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+          required
+        />
       </div>
       <div className="form-group">
         <label htmlFor="state">State</label>
-        <input type="text" id="state" value={state} onChange={(e) => setState(e.target.value)} required />
+        <input
+          type="text"
+          id="state"
+          value={state}
+          onChange={(e) => setState(e.target.value)}
+          required
+        />
       </div>
       <div className="form-group">
         <label htmlFor="postalCode">Postal Code</label>
-        <input type="text" id="postalCode" value={postalCode} onChange={(e) => setPostalCode(e.target.value)} required />
+        <input
+          type="text"
+          id="postalCode"
+          value={postalCode}
+          onChange={(e) => setPostalCode(e.target.value)}
+          required
+        />
       </div>
       <div className="form-group">
         <label htmlFor="country">Country</label>
-        <input type="text" id="country" value={country} onChange={(e) => setCountry(e.target.value)} required />
+        <input
+          type="text"
+          id="country"
+          value={country}
+          onChange={(e) => setCountry(e.target.value)}
+          required
+        />
       </div>
-      <button type="submit">Save</button>
-      <button type="button" onClick={onCancel} className="cancel-button">Cancel</button>
+      <div className="form-buttons">
+        <button type="submit">Save</button>
+        <button type="button" onClick={onCancel}>Cancel</button>
+      </div>
     </form>
   );
 };

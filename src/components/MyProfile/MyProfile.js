@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import axios from '../../configs/axiosConfig';
 import EditAddress from './EditAddress';
-import './MyProfile.css';
+import './MyProfile.css'; // Make sure to import the CSS file
 
 const MyProfile = () => {
   const [addresses, setAddresses] = useState([]);
@@ -35,7 +35,7 @@ const MyProfile = () => {
           Authorization: `Bearer ${token}`
         }
       });
-      fetchAddresses();
+      fetchAddresses(); // Fetch addresses again to get the updated list
       setIsEditing(false);
     } catch (error) {
       console.error('Error updating address:', error);
@@ -72,11 +72,26 @@ const MyProfile = () => {
             addresses.map((address) => (
               <div className="address-card" key={address.id}>
                 <div className="address-details">
-                  <p><strong>Street:</strong> {address.streetAddress}</p>
-                  <p><strong>City:</strong> {address.city}</p>
-                  <p><strong>State:</strong> {address.state}</p>
-                  <p><strong>Postal Code:</strong> {address.postalCode}</p>
-                  <p><strong>Country:</strong> {address.country}</p>
+                  <div>
+                    <span className="address-label">Street Address:</span>
+                    <p>{address.streetAddress}</p>
+                  </div>
+                  <div>
+                    <span className="address-label">City:</span>
+                    <p>{address.city}</p>
+                  </div>
+                  <div>
+                    <span className="address-label">State:</span>
+                    <p>{address.state}</p>
+                  </div>
+                  <div>
+                    <span className="address-label">Postal Code:</span>
+                    <p>{address.postalCode}</p>
+                  </div>
+                  <div>
+                    <span className="address-label">Country:</span>
+                    <p>{address.country}</p>
+                  </div>
                 </div>
                 <button className="edit-button" onClick={() => handleEditClick(address)}>Edit Address</button>
               </div>
