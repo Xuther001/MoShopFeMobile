@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from '../../configs/axiosConfig';
-import './MyProfile.css';
+import EditAddress from './EditAddress';
 
 const MyProfile = () => {
   const [addresses, setAddresses] = useState([]);
+  const [error, setError] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [currentAddress, setCurrentAddress] = useState(null);
   const userId = localStorage.getItem('userId');
   const token = localStorage.getItem('token');
 
@@ -16,31 +19,58 @@ const MyProfile = () => {
           }
         });
         setAddresses(response.data);
-      } catch (error) {
-        console.error('Error fetching addresses:', error);
+      } catch (err) {
+        setError(err.response ? err.response.data : 'An error occurred');
       }
     };
 
     fetchAddresses();
   }, [userId, token]);
 
+  const handleUpdateAddress = (updatedAddress) => {
+    setAddresses((prev) => 
+      prev.map((address) => (address.id === updatedAddress.id ? updatedAddress : address))
+    );
+    setIsEditing(false);
+  };
+
+  const handleEditClick = (address) => {
+    setCurrentAddress(address);
+    setIsEditing(true);
+  };
+
+  const handleCancelEdit = () => {
+    setIsEditing(false);
+    setCurrentAddress(null);
+  };
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   return (
-    <div className="my-profile-container">
-      <h2>My Profile</h2>
-      {addresses.length > 0 ? (
-        <div className="address-list">
-          {addresses.map((address) => (
-            <div key={address.id} className="address-card">
-              <p><strong>Street Address:</strong> {address.streetAddress}</p>
-              <p><strong>City:</strong> {address.city}</p>
-              <p><strong>State:</strong> {address.state}</p>
-              <p><strong>Postal Code:</strong> {address.postalCode}</p>
-              <p><strong>Country:</strong> {address.country}</p>
-            </div>
-          ))}
-        </div>
+    <div className="container">
+      <h1>My Profile</h1>
+      {isEditing ? (
+        <EditAddress 
+          userAddress={currentAddress} 
+          onUpdate={handleUpdateAddress} 
+          onCancel={handleCancelEdit} 
+        />
       ) : (
-        <p>No addresses found.</p>
+        <div>
+          <h2>Addresses</h2>
+          {addresses.length > 0 ? (
+            addresses.map((address) => (
+              <div key={address.id}>
+                <p>{address.streetAddress}, {address.city}, {address.state}, {address.postalCode}, {address.country}</p>
+                <button onClick={() => handleEditClick(address)}>Edit Address</button>
+              </div>
+            ))
+          ) : (
+            <p>No addresses found.</p>
+          )}
+        </div>
       )}
     </div>
   );
