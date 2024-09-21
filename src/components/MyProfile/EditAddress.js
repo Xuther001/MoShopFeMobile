@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from '../../configs/axiosConfig';
+import './EditAddress.css';
 
 const EditAddress = ({ userAddress, onUpdate, onCancel }) => {
   const [streetAddress, setStreetAddress] = useState(userAddress.streetAddress);
@@ -14,70 +15,54 @@ const EditAddress = ({ userAddress, onUpdate, onCancel }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const updatedAddress = {
-      userAddresses: [
-        {
-          id: userAddress.id,
-          streetAddress,
-          city,
-          state,
-          postalCode,
-          country,
-        }
-      ]
+      streetAddress,
+      city,
+      state,
+      postalCode,
+      country,
+      user: { 
+        id: userId,
+        username: localStorage.getItem('username')
+      } 
     };
 
     try {
-      const response = await axios.put(`/api/users/${userId}`, updatedAddress, {
+      await axios.put(`/api/users/${userId}`, updatedAddress, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-      onUpdate(response.data);
+      onUpdate(updatedAddress);
     } catch (err) {
-      console.error("Error updating address:", err);
+      console.error(err);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="edit-address-form">
       <h2>Edit Address</h2>
-      <input
-        type="text"
-        value={streetAddress}
-        onChange={(e) => setStreetAddress(e.target.value)}
-        placeholder="Street Address"
-        required
-      />
-      <input
-        type="text"
-        value={city}
-        onChange={(e) => setCity(e.target.value)}
-        placeholder="City"
-        required
-      />
-      <input
-        type="text"
-        value={state}
-        onChange={(e) => setState(e.target.value)}
-        placeholder="State"
-        required
-      />
-      <input
-        type="text"
-        value={postalCode}
-        onChange={(e) => setPostalCode(e.target.value)}
-        placeholder="Postal Code"
-        required
-      />
-      <input
-        type="text"
-        value={country}
-        onChange={(e) => setCountry(e.target.value)}
-        placeholder="Country"
-        required
-      />
+      <div className="form-group">
+        <label htmlFor="streetAddress">Street Address</label>
+        <input type="text" id="streetAddress" value={streetAddress} onChange={(e) => setStreetAddress(e.target.value)} required />
+      </div>
+      <div className="form-group">
+        <label htmlFor="city">City</label>
+        <input type="text" id="city" value={city} onChange={(e) => setCity(e.target.value)} required />
+      </div>
+      <div className="form-group">
+        <label htmlFor="state">State</label>
+        <input type="text" id="state" value={state} onChange={(e) => setState(e.target.value)} required />
+      </div>
+      <div className="form-group">
+        <label htmlFor="postalCode">Postal Code</label>
+        <input type="text" id="postalCode" value={postalCode} onChange={(e) => setPostalCode(e.target.value)} required />
+      </div>
+      <div className="form-group">
+        <label htmlFor="country">Country</label>
+        <input type="text" id="country" value={country} onChange={(e) => setCountry(e.target.value)} required />
+      </div>
       <button type="submit">Save</button>
-      <button type="button" onClick={onCancel}>Cancel</button>
+      <button type="button" onClick={onCancel} className="cancel-button">Cancel</button>
     </form>
   );
 };

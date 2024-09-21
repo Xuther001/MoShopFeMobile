@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import axios from '../../configs/axiosConfig';
 import EditAddress from './EditAddress';
+import './MyProfile.css';
 
 const MyProfile = () => {
   const [addresses, setAddresses] = useState([]);
@@ -34,7 +35,7 @@ const MyProfile = () => {
           Authorization: `Bearer ${token}`
         }
       });
-      fetchAddresses(); // Fetch addresses again to get the updated list
+      fetchAddresses();
       setIsEditing(false);
     } catch (error) {
       console.error('Error updating address:', error);
@@ -52,11 +53,11 @@ const MyProfile = () => {
   };
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div className="error-message">Error: {error}</div>;
   }
 
   return (
-    <div className="container">
+    <div className="profile-container">
       <h1>My Profile</h1>
       {isEditing ? (
         <EditAddress 
@@ -69,13 +70,19 @@ const MyProfile = () => {
           <h2>Addresses</h2>
           {addresses.length > 0 ? (
             addresses.map((address) => (
-              <div key={address.id}>
-                <p>{address.streetAddress}, {address.city}, {address.state}, {address.postalCode}, {address.country}</p>
-                <button onClick={() => handleEditClick(address)}>Edit Address</button>
+              <div className="address-card" key={address.id}>
+                <div className="address-details">
+                  <p><strong>Street:</strong> {address.streetAddress}</p>
+                  <p><strong>City:</strong> {address.city}</p>
+                  <p><strong>State:</strong> {address.state}</p>
+                  <p><strong>Postal Code:</strong> {address.postalCode}</p>
+                  <p><strong>Country:</strong> {address.country}</p>
+                </div>
+                <button className="edit-button" onClick={() => handleEditClick(address)}>Edit Address</button>
               </div>
             ))
           ) : (
-            <p>No addresses found.</p>
+            <p className="no-address">No addresses found.</p>
           )}
         </div>
       )}
