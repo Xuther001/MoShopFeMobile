@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import axios from '../../configs/axiosConfig';
 import EditAddress from './EditAddress';
 
@@ -10,28 +10,35 @@ const MyProfile = () => {
   const userId = localStorage.getItem('userId');
   const token = localStorage.getItem('token');
 
-  useEffect(() => {
-    const fetchAddresses = async () => {
-      try {
-        const response = await axios.get(`/api/users/${userId}/address`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-        setAddresses(response.data);
-      } catch (err) {
-        setError(err.response ? err.response.data : 'An error occurred');
-      }
-    };
-
-    fetchAddresses();
+  const fetchAddresses = useCallback(async () => {
+    try {
+      const response = await axios.get(`/api/users/${userId}/address`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setAddresses(response.data);
+    } catch (err) {
+      setError(err.response ? err.response.data : 'An error occurred');
+    }
   }, [userId, token]);
 
-  const handleUpdateAddress = (updatedAddress) => {
-    setAddresses((prev) => 
-      prev.map((address) => (address.id === updatedAddress.id ? updatedAddress : address))
-    );
-    setIsEditing(false);
+  useEffect(() => {
+    fetchAddresses();
+  }, [fetchAddresses]);
+
+  const handleUpdateAddress = async (updatedAddress) => {
+    try {
+      await axios.put(`/api/users/${userId}`, updatedAddress, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      fetchAddresses(); // Fetch addresses again to get the updated list
+      setIsEditing(false);
+    } catch (error) {
+      console.error('Error updating address:', error);
+    }
   };
 
   const handleEditClick = (address) => {
