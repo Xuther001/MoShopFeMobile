@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from '../../configs/axiosConfig';
 import './MyInvoice.css';
 
@@ -7,6 +8,7 @@ function MyInvoice() {
   const username = localStorage.getItem('username');
   const token = localStorage.getItem('token');
   const userId = parseInt(localStorage.getItem('userId'));
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchInvoices = async () => {
@@ -27,6 +29,10 @@ function MyInvoice() {
 
   const formatDate = (dateArray) => {
     return new Date(...dateArray).toLocaleString();
+  };
+
+  const handleHomePageClick = () => {
+    navigate('/');
   };
 
   return (
@@ -54,6 +60,12 @@ function MyInvoice() {
       ) : (
         <p className="centered-message">You have yet to make a purchase.</p>
       )}
+      <button 
+        className="home-page-button" 
+        onClick={handleHomePageClick}
+      >
+        Home Page
+      </button>
     </div>
   );
 }

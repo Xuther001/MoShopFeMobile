@@ -71,3 +71,17 @@ h2 {
     text-align: center;
     margin: 10px 0;
 }
+
+.home-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .home-button:hover {
+    background-color: #45a049;
+  }

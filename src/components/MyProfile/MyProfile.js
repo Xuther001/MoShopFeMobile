@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from '../../configs/axiosConfig';
 import EditAddress from './EditAddress';
-import './MyProfile.css'; // Make sure to import the CSS file
+import './MyProfile.css';
 
 const MyProfile = () => {
   const [addresses, setAddresses] = useState([]);
@@ -10,6 +11,7 @@ const MyProfile = () => {
   const [currentAddress, setCurrentAddress] = useState(null);
   const userId = localStorage.getItem('userId');
   const token = localStorage.getItem('token');
+  const navigate = useNavigate();
 
   const fetchAddresses = useCallback(async () => {
     try {
@@ -35,7 +37,7 @@ const MyProfile = () => {
           Authorization: `Bearer ${token}`
         }
       });
-      fetchAddresses(); // Fetch addresses again to get the updated list
+      fetchAddresses();
       setIsEditing(false);
     } catch (error) {
       console.error('Error updating address:', error);
@@ -50,6 +52,10 @@ const MyProfile = () => {
   const handleCancelEdit = () => {
     setIsEditing(false);
     setCurrentAddress(null);
+  };
+
+  const handleHomePageClick = () => {
+    navigate('/');
   };
 
   if (error) {
@@ -101,6 +107,7 @@ const MyProfile = () => {
           )}
         </div>
       )}
+      <button className="home-button" onClick={handleHomePageClick}>Home Page</button> {/* Home Page button */}
     </div>
   );
 };
