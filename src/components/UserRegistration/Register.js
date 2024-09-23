@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Register.css';
 
@@ -15,6 +16,9 @@ const Register = () => {
     postalCode: '',
     country: '',
   });
+  const [message, setMessage] = useState(null);
+  const [countdown, setCountdown] = useState(5);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,22 +32,40 @@ const Register = () => {
     e.preventDefault();
 
     try {
-        const response = await axios.post('http://localhost:8080/api/v1/auth/register', formData);
-        const { token, username, userId } = response.data;
-        localStorage.setItem('token', token);
-        localStorage.setItem('username', username);
-        localStorage.setItem('userId', userId);
-        console.log('Registration successful:', response.data);
-        alert('Registration successful');
+      const response = await axios.post('http://localhost:8080/api/v1/auth/register', formData);
+      const { token, username, userId } = response.data;
+      localStorage.setItem('token', token);
+      localStorage.setItem('username', username);
+      localStorage.setItem('userId', userId);
+      console.log('Registration successful:', response.data);
+      setMessage('Registration successful!');
+
+      const countdownInterval = setInterval(() => {
+        setCountdown((prev) => {
+          if (prev <= 1) {
+            clearInterval(countdownInterval);
+            navigate('/');
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+
     } catch (error) {
-        console.error('Error during registration:', error.response?.data || error.message);
-        alert('Registration failed');
+      console.error('Error during registration:', error.response?.data || error.message);
+      alert('Registration failed');
     }
-};
+  };
 
   return (
     <div className="registration-container">
       <h2>Register</h2>
+      {message && (
+        <>
+          <p className="success-message">{message}</p>
+          <p>You will be redirected in {countdown} seconds...</p>
+        </>
+      )}
       <form onSubmit={handleSubmit}>
         <input
           type="text"
