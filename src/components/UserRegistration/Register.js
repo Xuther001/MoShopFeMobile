@@ -16,8 +16,10 @@ const Register = () => {
     postalCode: '',
     country: '',
   });
+
   const [message, setMessage] = useState(null);
   const [countdown, setCountdown] = useState(5);
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -26,10 +28,55 @@ const Register = () => {
       ...formData,
       [name]: value,
     });
+    validateField(name, value);
+  };
+
+  const validateField = (name, value) => {
+    let error = '';
+
+    switch (name) {
+      case 'firstname':
+      case 'lastname':
+      case 'state':
+      case 'country':
+        // Updated regex to allow letters and spaces
+        if (!/^[A-Za-z\s]+$/.test(value)) {
+          error = `${name.charAt(0).toUpperCase() + name.slice(1)} must only contain letters and spaces.`;
+        }
+        break;
+      case 'city':
+        if (!/^[A-Za-z\s]+$/.test(value)) {
+          error = 'City must only contain letters and spaces.';
+        }
+        break;
+      case 'postalCode':
+        if (!/^[0-9]+$/.test(value)) {
+          error = 'Postal code must only contain numbers.';
+        }
+        break;
+      case 'email':
+        if (!/^\S+@\S+\.\S+$/.test(value)) {
+          error = 'Email should be valid.';
+        }
+        break;
+      default:
+        break;
+    }
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: error,
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Check for errors before submission
+    if (Object.values(errors).some((error) => error)) {
+      alert('Please fix the errors in the form before submitting.');
+      return;
+    }
 
     try {
       const response = await axios.post('http://localhost:8080/api/v1/auth/register', formData);
@@ -75,6 +122,8 @@ const Register = () => {
           onChange={handleChange}
           required
         />
+        {errors.firstname && <p className="error-message">{errors.firstname}</p>}
+
         <input
           type="text"
           name="lastname"
@@ -83,6 +132,8 @@ const Register = () => {
           onChange={handleChange}
           required
         />
+        {errors.lastname && <p className="error-message">{errors.lastname}</p>}
+
         <input
           type="email"
           name="email"
@@ -91,6 +142,8 @@ const Register = () => {
           onChange={handleChange}
           required
         />
+        {errors.email && <p className="error-message">{errors.email}</p>}
+
         <input
           type="password"
           name="password"
@@ -99,6 +152,7 @@ const Register = () => {
           onChange={handleChange}
           required
         />
+
         <input
           type="text"
           name="username"
@@ -107,6 +161,7 @@ const Register = () => {
           onChange={handleChange}
           required
         />
+
         <input
           type="text"
           name="streetAddress"
@@ -115,6 +170,7 @@ const Register = () => {
           onChange={handleChange}
           required
         />
+
         <input
           type="text"
           name="city"
@@ -123,6 +179,8 @@ const Register = () => {
           onChange={handleChange}
           required
         />
+        {errors.city && <p className="error-message">{errors.city}</p>}
+
         <input
           type="text"
           name="state"
@@ -131,6 +189,8 @@ const Register = () => {
           onChange={handleChange}
           required
         />
+        {errors.state && <p className="error-message">{errors.state}</p>}
+
         <input
           type="text"
           name="postalCode"
@@ -139,6 +199,8 @@ const Register = () => {
           onChange={handleChange}
           required
         />
+        {errors.postalCode && <p className="error-message">{errors.postalCode}</p>}
+
         <input
           type="text"
           name="country"
@@ -147,6 +209,8 @@ const Register = () => {
           onChange={handleChange}
           required
         />
+        {errors.country && <p className="error-message">{errors.country}</p>}
+
         <button type="submit">Register</button>
       </form>
     </div>
