@@ -13,7 +13,8 @@ const ProductList = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get('/api/products');
-        setProducts(response.data);
+        const sortedProducts = response.data.sort((a, b) => a.id - b.id);
+        setProducts(sortedProducts);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -55,7 +56,7 @@ const ProductList = () => {
           <p>No products available.</p>
         )}
       </div>
-      
+
       {selectedProductId && (
         <ProductDetails productId={selectedProductId} onClose={handleCloseDetails} />
       )}
