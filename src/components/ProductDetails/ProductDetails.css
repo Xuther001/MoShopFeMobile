@@ -46,3 +46,12 @@
 .review-item:last-child {
   border-bottom: none;
 }
+
+.low-stock {
+  color: red;
+  font-weight: bold;
+}
+
+.left-text {
+  color: red;
+}

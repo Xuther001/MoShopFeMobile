@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import axios from '../../configs/axiosConfig';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './Login.css';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [userId] = useState('');
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -16,14 +15,15 @@ const Login = () => {
     try {
       const response = await axios.post('/api/v1/auth/authenticate', {
         username,
-        password,
-        userId
+        password
       });
       
+      // Store user data in local storage
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('username', response.data.username);
       localStorage.setItem('userId', response.data.userId);
       
+      // Redirect to homepage
       navigate('/');
     } catch (err) {
       setError('Invalid credentials. Please try again.');
@@ -55,6 +55,9 @@ const Login = () => {
         </div>
         <button type="submit">Login</button>
       </form>
+      <p>
+        <Link to="/passwordchangerequest">Forgot my password?</Link>
+      </p>
     </div>
   );
 };
