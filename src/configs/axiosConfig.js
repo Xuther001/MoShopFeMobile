@@ -11,7 +11,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'https://ec2-44-200-11-149.compute-1.amazonaws.com:8080',
+  baseURL: 'https://ec2-3-235-3-82.compute-1.amazonaws.com:8080',
 });
 
 export default instance;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from '../../configs/axiosConfig';
+import instance from '../../configs/axiosConfig';
 import './Register.css';
 
 const Register = () => {
@@ -79,7 +79,7 @@ const Register = () => {
     }
 
     try {
-      const response = await axios.post('http://ec2-44-200-11-149.compute-1.amazonaws.com:8080/api/v1/auth/register', formData);
+      const response = await instance.post('/api/v1/auth/register', formData);
       const { token, username, userId } = response.data;
       localStorage.setItem('token', token);
       localStorage.setItem('username', username);
