@@ -79,7 +79,7 @@ const Register = () => {
     }
 
     try {
-      const response = await axios.post('http://ec2-44-200-11-149.compute-1.amazonaws.com:8080/api/v1/auth/register', formData);
+      const response = await axios.post('https://ec2-44-200-11-149.compute-1.amazonaws.com:8080/api/v1/auth/register', formData);
       const { token, username, userId } = response.data;
       localStorage.setItem('token', token);
       localStorage.setItem('username', username);
