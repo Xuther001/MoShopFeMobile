@@ -38,28 +38,24 @@ function MyInvoice() {
   return (
     <div className="my-invoice-container">
       <h2>My Invoices</h2>
-      {invoices.length > 0 ? (
-        invoices.map((invoice) => (
-          <div key={invoice.id} className="invoice-card">
-            <h3>Invoice ID: {invoice.id}</h3>
-            <p><strong>Purchase Date:</strong> {formatDate(invoice.purchaseDate)}</p>
-            <p><strong>Total Price:</strong> ${invoice.totalPrice.toFixed(2)}</p>
-            <p><strong>Payment Status:</strong> {invoice.paymentStatus}</p>
-            <div className="invoice-items">
-              <h4>Items:</h4>
-              <ul>
-                {invoice.items.map(item => (
-                  <li key={item.id}>
-                    <strong>{item.productName}</strong> - Quantity: {item.quantity}, Total Price: ${item.totalPrice.toFixed(2)}
-                  </li>
-                ))}
-              </ul>
-            </div>
+      {invoices.length > 0 && invoices.map((invoice) => (
+        <div key={invoice.id} className="invoice-card">
+          <h3>Invoice ID: {invoice.id}</h3>
+          <p><strong>Purchase Date:</strong> {formatDate(invoice.purchaseDate)}</p>
+          <p><strong>Total Price:</strong> ${invoice.totalPrice.toFixed(2)}</p>
+          <p><strong>Payment Status:</strong> {invoice.paymentStatus}</p>
+          <div className="invoice-items">
+            <h4>Items:</h4>
+            <ul>
+              {invoice.items.map(item => (
+                <li key={item.id}>
+                  <strong>{item.productName}</strong> - Quantity: {item.quantity}, Total Price: ${item.totalPrice.toFixed(2)}
+                </li>
+              ))}
+            </ul>
           </div>
-        ))
-      ) : (
-        <p className="centered-message">You have yet to make a purchase.</p>
-      )}
+        </div>
+      ))}
       <button 
         className="home-page-button" 
         onClick={handleHomePageClick}

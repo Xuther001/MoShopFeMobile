@@ -5,7 +5,7 @@ import './Footwear.css';
 
 const Footwear = () => {
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedProductId, setSelectedProductId] = useState(null);
   const productListRef = useRef(null);
@@ -19,9 +19,10 @@ const Footwear = () => {
         setProducts(sortedProducts);
       } catch (err) {
         setError(err.message);
-      } finally {
-        setLoading(false);
-      }
+      } 
+      // finally {
+      //   setLoading(false);
+      // }
     };
 
     fetchProducts();
@@ -35,10 +36,8 @@ const Footwear = () => {
     setSelectedProductId(null);
   };
 
-  if (loading) return <div>Loading products...</div>;
+  // if (loading) return <div>Loading products...</div>;
   if (error) return <div>Error: {error}</div>;
-
-  const duplicatedProducts = [...products, ...products];
 
   return (
     <div className="footwear-container">
@@ -46,20 +45,16 @@ const Footwear = () => {
         &#9664;
       </div>
       <div className="product-list" ref={productListRef}>
-        {duplicatedProducts.length > 0 ? (
-          duplicatedProducts.map((product) => (
-            <div
-              key={product.id}
-              className="product-item"
-              onClick={() => handleProductClick(product.id)}
-            >
-              <img src={product.imageUrl} alt={product.name} className="product-image" />
-              <h2>{product.name}</h2>
-            </div>
-          ))
-        ) : (
-          <p>No products available in this category.</p>
-        )}
+        {products.map((product) => (
+          <div
+            key={product.id}
+            className="product-item"
+            onClick={() => handleProductClick(product.id)}
+          >
+            <img src={product.imageUrl} alt={product.name} className="product-image" />
+            <h2>{product.name}</h2>
+          </div>
+        ))}
       </div>
       <div className="scroll-button right" onClick={() => productListRef.current.scrollBy({ left: 200, behavior: 'smooth' })}>
         &#9654;

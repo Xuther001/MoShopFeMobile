@@ -18,12 +18,10 @@ const Login = () => {
         password
       });
       
-      // Store user data in local storage
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('username', response.data.username);
       localStorage.setItem('userId', response.data.userId);
       
-      // Redirect to homepage
       navigate('/');
     } catch (err) {
       setError('Invalid credentials. Please try again.');
@@ -58,6 +56,7 @@ const Login = () => {
       <p>
         <Link to="/passwordchangerequest">Forgot my password?</Link>
       </p>
+      <Link to="/" className="home-page-button">Home Page</Link>
     </div>
   );
 };

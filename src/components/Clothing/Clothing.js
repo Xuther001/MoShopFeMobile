@@ -5,7 +5,7 @@ import './Clothing.css';
 
 const Clothing = () => {
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedProductId, setSelectedProductId] = useState(null);
 
@@ -18,9 +18,10 @@ const Clothing = () => {
         setProducts(sortedProducts);
       } catch (err) {
         setError(err.message);
-      } finally {
-        setLoading(false);
       }
+      // finally {
+      //   setLoading(false);
+      // }
     };
 
     fetchProducts();
@@ -34,26 +35,22 @@ const Clothing = () => {
     setSelectedProductId(null);
   };
 
-  if (loading) return <div>Loading products...</div>;
+  // if (loading) return <div>Loading products...</div>;
   if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="product-list-container">
       <div className="product-list">
-        {products.length > 0 ? (
-          products.map((product) => (
-            <div
-              key={product.id}
-              className="product-item"
-              onClick={() => handleProductClick(product.id)}
-            >
-              <img src={product.imageUrl} alt={product.name} className="product-image" />
-              <h2>{product.name}</h2>
-            </div>
-          ))
-        ) : (
-          <p>No products available in this category.</p>
-        )}
+        {products.map((product) => (
+          <div
+            key={product.id}
+            className="product-item"
+            onClick={() => handleProductClick(product.id)}
+          >
+            <img src={product.imageUrl} alt={product.name} className="product-image" />
+            <h2>{product.name}</h2>
+          </div>
+        ))}
       </div>
 
       {selectedProductId && (

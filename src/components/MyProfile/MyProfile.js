@@ -74,37 +74,33 @@ const MyProfile = () => {
       ) : (
         <div>
           <h2>Addresses</h2>
-          {addresses.length > 0 ? (
-            addresses.map((address) => (
-              <div className="address-card" key={address.id}>
-                <div className="address-details">
-                  <div>
-                    <span className="address-label">Street Address:</span>
-                    <p>{address.streetAddress}</p>
-                  </div>
-                  <div>
-                    <span className="address-label">City:</span>
-                    <p>{address.city}</p>
-                  </div>
-                  <div>
-                    <span className="address-label">State:</span>
-                    <p>{address.state}</p>
-                  </div>
-                  <div>
-                    <span className="address-label">Postal Code:</span>
-                    <p>{address.postalCode}</p>
-                  </div>
-                  <div>
-                    <span className="address-label">Country:</span>
-                    <p>{address.country}</p>
-                  </div>
+          {addresses.length > 0 && addresses.map((address) => (
+            <div className="address-card" key={address.id}>
+              <div className="address-details">
+                <div>
+                  <span className="address-label">Street Address:</span>
+                  <p>{address.streetAddress}</p>
                 </div>
-                <button className="edit-button" onClick={() => handleEditClick(address)}>Edit Address</button>
+                <div>
+                  <span className="address-label">City:</span>
+                  <p>{address.city}</p>
+                </div>
+                <div>
+                  <span className="address-label">State:</span>
+                  <p>{address.state}</p>
+                </div>
+                <div>
+                  <span className="address-label">Postal Code:</span>
+                  <p>{address.postalCode}</p>
+                </div>
+                <div>
+                  <span className="address-label">Country:</span>
+                  <p>{address.country}</p>
+                </div>
               </div>
-            ))
-          ) : (
-            <p className="no-address">No addresses found.</p>
-          )}
+              <button className="edit-button" onClick={() => handleEditClick(address)}>Edit Address</button>
+            </div>
+          ))}
         </div>
       )}
       <button className="home-button" onClick={handleHomePageClick}>Home Page</button> {/* Home Page button */}

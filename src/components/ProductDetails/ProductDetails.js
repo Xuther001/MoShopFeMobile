@@ -5,7 +5,7 @@ import './ProductDetails.css';
 const ProductDetails = ({ productId, onClose }) => {
   const [product, setProduct] = useState(null);
   const [reviews, setReviews] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [canReview, setCanReview] = useState(false);
@@ -22,21 +22,23 @@ const ProductDetails = ({ productId, onClose }) => {
         const reviewsResponse = await axios.get(`/api/products/${productId}/reviews`);
         setReviews(reviewsResponse.data);
 
-        const purchaseResponse = await axios.get(`/api/purchases/check`, {
-          params: { username, productId }
-        });
-        setCanReview(purchaseResponse.data.purchased);
+        if (username) {
+          const purchaseResponse = await axios.get(`/api/purchases/check`, {
+            params: { username, productId }
+          });
+          setCanReview(purchaseResponse.data.purchased);
 
-        const userReviewResponse = await axios.get(`/api/products/${productId}/reviews/user`, {
-          params: { username }
-        });
-        
-        setHasReviewed(userReviewResponse.data.length > 0);
+          const userReviewResponse = await axios.get(`/api/products/${productId}/reviews/user`, {
+            params: { username }
+          });
+          setHasReviewed(userReviewResponse.data.length > 0);
+        }
       } catch (err) {
         setError(err.message);
-      } finally {
-        setLoading(false);
-      }
+      } 
+      // finally {
+      //   setLoading(false);
+      // }
     };
 
     if (productId) {
@@ -88,7 +90,8 @@ const ProductDetails = ({ productId, onClose }) => {
     }
   };
 
-  if (loading) return <div>Loading product details...</div>;
+  // Loading state
+  // if (loading) return <div>Loading product details...</div>;
   if (error) return <div>Error: {error}</div>;
   if (!product) return null;
 

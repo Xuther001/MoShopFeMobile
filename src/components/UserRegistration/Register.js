@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import instance from '../../configs/axiosConfig';
 import './Register.css';
 
@@ -39,7 +39,6 @@ const Register = () => {
       case 'lastname':
       case 'state':
       case 'country':
-        // Updated regex to allow letters and spaces
         if (!/^[A-Za-z\s]+$/.test(value)) {
           error = `${name.charAt(0).toUpperCase() + name.slice(1)} must only contain letters and spaces.`;
         }
@@ -72,7 +71,6 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Check for errors before submission
     if (Object.values(errors).some((error) => error)) {
       alert('Please fix the errors in the form before submitting.');
       return;
@@ -213,6 +211,7 @@ const Register = () => {
 
         <button type="submit">Register</button>
       </form>
+      <Link to="/" className="home-page-button">Home Page</Link>
     </div>
   );
 };
