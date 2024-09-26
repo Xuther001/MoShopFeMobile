@@ -13,7 +13,8 @@ const ProductList = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get('/api/products');
-        const sortedProducts = response.data.sort((a, b) => a.id - b.id);
+        const filteredProducts = response.data.filter(product => product.category.id === 2);
+        const sortedProducts = filteredProducts.sort((a, b) => a.id - b.id);
         setProducts(sortedProducts);
       } catch (err) {
         setError(err.message);
@@ -53,7 +54,7 @@ const ProductList = () => {
             </div>
           ))
         ) : (
-          <p>No products available.</p>
+          <p>No products available in this category.</p>
         )}
       </div>
 
