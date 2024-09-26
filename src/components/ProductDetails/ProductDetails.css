@@ -41,10 +41,33 @@
 .review-item {
   border-bottom: 1px solid #ddd;
   padding: 10px 0;
+  display: flex;
+  align-items: center;
 }
 
 .review-item:last-child {
   border-bottom: none;
+}
+
+.review-item p {
+  margin: 0;
+  flex-grow: 1;
+}
+
+.rating {
+  display: flex;
+  margin-left: 10px;
+}
+
+.star {
+  cursor: pointer;
+  font-size: 20px;
+  color: #ddd;
+  margin-right: 5px;
+}
+
+.star.filled {
+  color: #ff9800;
 }
 
 .low-stock {
@@ -58,22 +81,6 @@
 
 .add-review-form {
   margin-top: 20px;
-}
-
-.rating {
-  display: flex;
-  margin-bottom: 10px;
-}
-
-.star {
-  cursor: pointer;
-  font-size: 20px;
-  color: #ddd;
-  margin-right: 5px;
-}
-
-.star.filled {
-  color: #ff9800;
 }
 
 .add-review-form textarea {

@@ -5,11 +5,12 @@ import './ProductDetails.css';
 const ProductDetails = ({ productId, onClose }) => {
   const [product, setProduct] = useState(null);
   const [reviews, setReviews] = useState([]);
-  // const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [canReview, setCanReview] = useState(false);
   const [hasReviewed, setHasReviewed] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [hoverRating, setHoverRating] = useState(0);
   const username = localStorage.getItem('username');
   const token = localStorage.getItem('token');
 
@@ -35,10 +36,7 @@ const ProductDetails = ({ productId, onClose }) => {
         }
       } catch (err) {
         setError(err.message);
-      } 
-      // finally {
-      //   setLoading(false);
-      // }
+      }
     };
 
     if (productId) {
@@ -81,17 +79,28 @@ const ProductDetails = ({ productId, onClose }) => {
 
   const handleReviewSubmit = async (reviewData) => {
     try {
-      await axios.post(`/api/products/reviews`, reviewData);
+      const response = await axios.post(`/api/products/reviews`, reviewData);
       alert('Review submitted successfully!');
+
+      setReviews([...reviews, response.data]);
       setHasReviewed(true);
+      setRating(0);
     } catch (err) {
       console.error(err);
       setError('Failed to submit review.');
     }
   };
 
-  // Loading state
-  // if (loading) return <div>Loading product details...</div>;
+  const renderStars = (rating) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      stars.push(
+        <span key={i} className={`star ${i <= rating ? 'filled' : ''}`}>★</span>
+      );
+    }
+    return <div className="rating">{stars}</div>;
+  };
+
   if (error) return <div>Error: {error}</div>;
   if (!product) return null;
 
@@ -120,25 +129,47 @@ const ProductDetails = ({ productId, onClose }) => {
 
       <button onClick={handleAddToCart} className="add-to-cart-btn">Add to Cart</button>
 
-      {canReview ? (
-        hasReviewed ? (
-          <p>You have already reviewed this item.</p>
-        ) : (
-          <div className="review-prompt">
-            <p>You have purchased this item. Would you like to leave a review?</p>
-            <button onClick={() => handleReviewSubmit({ productId, username, rating: 5, comment: 'Great product!' })}>
-              Review
-            </button>
-          </div>
-        )
-      ) : null}
+      {canReview && !hasReviewed && (
+        <div className="review-prompt">
+          <p>You have purchased this item. If you want, you can leave a review below:</p>
+          <form onSubmit={(e) => {
+            e.preventDefault();
+            handleReviewSubmit({
+              productId,
+              username,
+              rating: rating,
+              comment: e.target.comment.value
+            });
+          }}>
+            <div className="rating">
+              {[...Array(5)].map((_, index) => (
+                <span
+                  key={index}
+                  className={`star ${index < (hoverRating || rating) ? 'filled' : ''}`}
+                  onClick={() => setRating(index + 1)}
+                  onMouseEnter={() => setHoverRating(index + 1)}
+                  onMouseLeave={() => setHoverRating(0)}
+                >
+                  ★
+                </span>
+              ))}
+            </div>
+            <label>Comment:</label>
+            <textarea name="comment" required></textarea>
+            <button type="submit">Submit Review</button>
+          </form>
+        </div>
+      )}
+
+      {hasReviewed && <p>You have already reviewed this item.</p>}
 
       <div className="reviews-section">
         <h3>Customer Reviews</h3>
         {reviews.length ? (
           reviews.map((review) => (
             <div key={review.id} className="review-item">
-              <p><strong>{review.username}</strong>: {review.comment} ({review.rating}/5)</p>
+              <p><strong>{review.username}</strong>: {review.comment}</p>
+              {renderStars(review.rating)}
             </div>
           ))
         ) : (
