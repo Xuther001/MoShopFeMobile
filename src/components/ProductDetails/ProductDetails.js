@@ -8,6 +8,8 @@ const ProductDetails = ({ productId, onClose }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [canReview, setCanReview] = useState(false);
+  const [hasReviewed, setHasReviewed] = useState(false);
   const username = localStorage.getItem('username');
   const token = localStorage.getItem('token');
 
@@ -19,6 +21,17 @@ const ProductDetails = ({ productId, onClose }) => {
 
         const reviewsResponse = await axios.get(`/api/products/${productId}/reviews`);
         setReviews(reviewsResponse.data);
+
+        const purchaseResponse = await axios.get(`/api/purchases/check`, {
+          params: { username, productId }
+        });
+        setCanReview(purchaseResponse.data.purchased);
+
+        const userReviewResponse = await axios.get(`/api/products/${productId}/reviews/user`, {
+          params: { username }
+        });
+        
+        setHasReviewed(userReviewResponse.data.length > 0);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -29,19 +42,19 @@ const ProductDetails = ({ productId, onClose }) => {
     if (productId) {
       fetchProductDetails();
     }
-  }, [productId]);
+  }, [productId, username]);
 
   const handleAddToCart = async () => {
     if (!token) {
       alert('You are not authenticated. Please log in.');
       return;
     }
-  
+
     if (quantity > product.stock) {
       alert(`Quantity exceeds available stock. Only ${product.stock} item(s) left in stock.`);
       return;
     }
-  
+
     try {
       await axios.post(`/cart/add`, {
         username,
@@ -53,17 +66,27 @@ const ProductDetails = ({ productId, onClose }) => {
         }
       });
       alert('Product added to cart!');
-  
+
       const updatedProduct = await axios.get(`/api/products/${productId}`);
       setProduct(updatedProduct.data);
 
       onClose();
-  
     } catch (err) {
       console.error(err);
       setError('Failed to add product to cart.');
     }
-  };  
+  };
+
+  const handleReviewSubmit = async (reviewData) => {
+    try {
+      await axios.post(`/api/products/reviews`, reviewData);
+      alert('Review submitted successfully!');
+      setHasReviewed(true);
+    } catch (err) {
+      console.error(err);
+      setError('Failed to submit review.');
+    }
+  };
 
   if (loading) return <div>Loading product details...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -93,6 +116,19 @@ const ProductDetails = ({ productId, onClose }) => {
       </div>
 
       <button onClick={handleAddToCart} className="add-to-cart-btn">Add to Cart</button>
+
+      {canReview ? (
+        hasReviewed ? (
+          <p>You have already reviewed this item.</p>
+        ) : (
+          <div className="review-prompt">
+            <p>You have purchased this item. Would you like to leave a review?</p>
+            <button onClick={() => handleReviewSubmit({ productId, username, rating: 5, comment: 'Great product!' })}>
+              Review
+            </button>
+          </div>
+        )
+      ) : null}
 
       <div className="reviews-section">
         <h3>Customer Reviews</h3>
