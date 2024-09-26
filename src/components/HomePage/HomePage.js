@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import ProductList from '../ProductList/ProductList';
+import Clothing from '../Clothing/Clothing';
+import Footwear from '../Footwear/Footwear';
 import './HomePage.css';
 
 function HomePage() {
@@ -60,7 +61,8 @@ function HomePage() {
           </>
         )}
       </div>
-      <ProductList />
+      <Clothing />
+      <Footwear />
     </div>
   );
 }

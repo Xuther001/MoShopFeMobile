@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../../configs/axiosConfig';
 import ProductDetails from '../ProductDetails/ProductDetails';
-import './ProductList.css';
+import './Clothing.css';
 
-const ProductList = () => {
+const Clothing = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -49,8 +49,6 @@ const ProductList = () => {
             >
               <img src={product.imageUrl} alt={product.name} className="product-image" />
               <h2>{product.name}</h2>
-              <p>{product.description}</p>
-              <p>Price: ${product.price}</p>
             </div>
           ))
         ) : (
@@ -65,4 +63,4 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default Clothing;
