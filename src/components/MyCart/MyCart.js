@@ -154,7 +154,7 @@ function MyCart() {
             className="checkout-button" 
             onClick={handleCheckout}
           >
-            Purchase
+            Simulate a Purchase
           </button>
         </>
       ) : (

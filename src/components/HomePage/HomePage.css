@@ -43,3 +43,28 @@
   border: none;
   padding: 10px 20px;
 }
+
+.mycart-button, .myinvoice-button, .myprofile-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #008CBA;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  white-space: nowrap;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.mycart-button:hover,
+.myinvoice-button:hover,
+.myprofile-button:hover {
+  background-color: #005f75;
+}
+
+.clothing-component {
+  margin-top: 20px;
+}

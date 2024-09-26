@@ -61,7 +61,7 @@ function HomePage() {
           </>
         )}
       </div>
-      <Clothing />
+      <Clothing className="clothing-component" />
       <Footwear />
     </div>
   );
