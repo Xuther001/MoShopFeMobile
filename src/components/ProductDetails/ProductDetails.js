@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../../configs/axiosConfig';
+import StarRating from '../StarRating/StarRating';
 import './ProductDetails.css';
 
 const ProductDetails = ({ productId, onClose }) => {
@@ -10,7 +11,7 @@ const ProductDetails = ({ productId, onClose }) => {
   const [canReview, setCanReview] = useState(false);
   const [hasReviewed, setHasReviewed] = useState(false);
   const [rating, setRating] = useState(0);
-  const [hoverRating, setHoverRating] = useState(0);
+  const [hoverRating, setHoverRating] = useState(0); // Track hover state
   const username = localStorage.getItem('username');
   const token = localStorage.getItem('token');
 
@@ -91,16 +92,6 @@ const ProductDetails = ({ productId, onClose }) => {
     }
   };
 
-  const renderStars = (rating) => {
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      stars.push(
-        <span key={i} className={`star ${i <= rating ? 'filled' : ''}`}>★</span>
-      );
-    }
-    return <div className="rating">{stars}</div>;
-  };
-
   if (error) return <div>Error: {error}</div>;
   if (!product) return null;
 
@@ -141,19 +132,7 @@ const ProductDetails = ({ productId, onClose }) => {
               comment: e.target.comment.value
             });
           }}>
-            <div className="rating">
-              {[...Array(5)].map((_, index) => (
-                <span
-                  key={index}
-                  className={`star ${index < (hoverRating || rating) ? 'filled' : ''}`}
-                  onClick={() => setRating(index + 1)}
-                  onMouseEnter={() => setHoverRating(index + 1)}
-                  onMouseLeave={() => setHoverRating(0)}
-                >
-                  ★
-                </span>
-              ))}
-            </div>
+            <StarRating rating={rating} setRating={setRating} hoverRating={hoverRating} setHoverRating={setHoverRating} />
             <label>Comment:</label>
             <textarea name="comment" required></textarea>
             <button type="submit">Submit Review</button>
@@ -169,7 +148,7 @@ const ProductDetails = ({ productId, onClose }) => {
           reviews.map((review) => (
             <div key={review.id} className="review-item">
               <p><strong>{review.username}</strong>: {review.comment}</p>
-              {renderStars(review.rating)}
+              <StarRating rating={review.rating} setRating={() => {}} />
             </div>
           ))
         ) : (

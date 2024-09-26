@@ -1,0 +1,26 @@
+/* StarRating.css */
+
+.star-rating {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row; /* Ensure the stars align horizontally */
+    gap: 5px; /* Space between stars */
+    width: 100%; /* Full width for proper flexbox alignment */
+  }
+  
+  .star {
+    cursor: pointer;
+    font-size: 24px;
+    color: lightgray;
+    transition: color 0.2s ease-in-out;
+    display: inline-block; /* Enforce inline-block to prevent block-level behavior */
+  }
+  
+  .star.filled {
+    color: gold;
+  }
+  
+  .star:hover {
+    color: gold;
+  }  

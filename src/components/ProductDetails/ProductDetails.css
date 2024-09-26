@@ -42,7 +42,9 @@
   border-bottom: 1px solid #ddd;
   padding: 10px 0;
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .review-item:last-child {
@@ -51,10 +53,11 @@
 
 .review-item p {
   margin: 0;
-  flex-grow: 1;
+  flex: 1;
+  min-width: 0;
 }
 
-.rating {
+.star-rating {
   display: flex;
   margin-left: 10px;
 }
@@ -63,7 +66,7 @@
   cursor: pointer;
   font-size: 20px;
   color: #ddd;
-  margin-right: 5px;
+  margin-left: 5px;
 }
 
 .star.filled {
