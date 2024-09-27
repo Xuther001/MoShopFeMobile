@@ -9,23 +9,21 @@
   top: 10px;
   right: 10px;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 10px;
   z-index: 1000;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .login-signup-group,
 .logged-in-buttons {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
 }
 
-.signup-link,
-.login-link,
-.logout-button,
-.mycart-button, 
-.myinvoice-button, 
-.myprofile-button {
+.common-button {
   display: inline-block;
   padding: 12px;
   background-color: #4CAF50;
@@ -46,23 +44,12 @@
   background-color: #d32f2f;
 }
 
-.mycart-button, .myinvoice-button, .myprofile-button {
-  background-color: #008CBA;
-}
-
-.signup-link:hover,
-.login-link:hover {
+.common-button:hover {
   background-color: #45a049;
 }
 
 .logout-button:hover {
   background-color: #f44336;
-}
-
-.mycart-button:hover,
-.myinvoice-button:hover,
-.myprofile-button:hover {
-  background-color: #005f75;
 }
 
 @media (max-width: 768px) {
@@ -73,16 +60,13 @@
   .auth-buttons {
     top: 5px;
     right: 5px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .logged-in-buttons {
     flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
   }
 
-  .signup-link, .login-link, .logout-button, .mycart-button, .myinvoice-button, .myprofile-button {
+  .common-button {
     font-size: 12px;
     padding: 8px;
     max-width: 150px;
@@ -90,12 +74,14 @@
 }
 
 @media (max-width: 480px) {
-  .signup-link, .login-link {
-    display: inline-flex;
-    margin-right: 5px;
+  .auth-buttons {
+    top: 5px;
+    right: 5px;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
   }
 
-  .signup-link, .login-link, .logout-button, .mycart-button, .myinvoice-button, .myprofile-button {
+  .common-button {
     font-size: 10px;
     padding: 6px;
     max-width: 120px;

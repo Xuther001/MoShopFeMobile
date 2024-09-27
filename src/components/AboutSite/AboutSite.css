@@ -1,0 +1,16 @@
+.about-site-button {
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    line-height: 1.5;
+    margin-top: 20px;
+  }
+  
+  .about-site-button:hover {
+    background-color: #45a049;
+  }  

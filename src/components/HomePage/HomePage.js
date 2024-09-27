@@ -47,17 +47,18 @@ function HomePage() {
   return (
     <div className="home-page">
       <div className="auth-buttons">
+        <Link to="/about-site" className="common-button">About Site</Link>
         {!isLoggedIn ? (
           <div className="login-signup-group">
-            <Link to="/login" className="login-link">Login</Link>
-            <Link to="/register" className="signup-link">Sign Up</Link>
+            <Link to="/login" className="common-button">Login</Link>
+            <Link to="/register" className="common-button">Sign Up</Link>
           </div>
         ) : (
           <div className="logged-in-buttons">
-            <button className="logout-button" onClick={handleLogout}>Log Out</button>
-            <button className="mycart-button" onClick={handleCartClick}>My Cart</button>
-            <button className="myinvoice-button" onClick={handleInvoiceClick}>My Invoices</button>
-            <button className="myprofile-button" onClick={handleProfileClick}>My Profile</button>
+            <button className="common-button logout-button" onClick={handleLogout}>Log Out</button>
+            <button className="common-button" onClick={handleCartClick}>My Cart</button>
+            <button className="common-button" onClick={handleInvoiceClick}>My Invoices</button>
+            <button className="common-button" onClick={handleProfileClick}>My Profile</button>
           </div>
         )}
       </div>

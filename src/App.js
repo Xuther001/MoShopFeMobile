@@ -8,6 +8,7 @@ import MyInvoice from './components/MyInvoice/MyInvoice';
 import MyProfile from './components/MyProfile/MyProfile';
 import PasswordChangeRequest from './components/PasswordChangeRequest/PasswordChangeRequest';
 import ResetPassword from './components/ResetPassword/ResetPassword';
+import AboutSite from './components/AboutSite/AboutSite';
 
 function App() {
   return (
@@ -20,7 +21,8 @@ function App() {
         <Route path="/cart/:username" element={<MyCart />} />
         <Route path="/profile/:username" element={<MyProfile />} />
         <Route path="/passwordchangerequest" element={<PasswordChangeRequest />} />
-        <Route path="/reset-password" element={<ResetPassword />} /> {/* New Route */}
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/about-site" element={<AboutSite />} />
       </Routes>
     </Router>
   );
