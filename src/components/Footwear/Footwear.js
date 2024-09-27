@@ -5,7 +5,6 @@ import './Footwear.css';
 
 const Footwear = () => {
   const [products, setProducts] = useState([]);
-  // const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedProductId, setSelectedProductId] = useState(null);
   const productListRef = useRef(null);
@@ -19,10 +18,7 @@ const Footwear = () => {
         setProducts(sortedProducts);
       } catch (err) {
         setError(err.message);
-      } 
-      // finally {
-      //   setLoading(false);
-      // }
+      }
     };
 
     fetchProducts();
@@ -36,14 +32,10 @@ const Footwear = () => {
     setSelectedProductId(null);
   };
 
-  // if (loading) return <div>Loading products...</div>;
   if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="footwear-container">
-      <div className="scroll-button left" onClick={() => productListRef.current.scrollBy({ left: -200, behavior: 'smooth' })}>
-        &#9664;
-      </div>
       <div className="product-list" ref={productListRef}>
         {products.map((product) => (
           <div
@@ -55,9 +47,6 @@ const Footwear = () => {
             <h2>{product.name}</h2>
           </div>
         ))}
-      </div>
-      <div className="scroll-button right" onClick={() => productListRef.current.scrollBy({ left: 200, behavior: 'smooth' })}>
-        &#9654;
       </div>
 
       {selectedProductId && (

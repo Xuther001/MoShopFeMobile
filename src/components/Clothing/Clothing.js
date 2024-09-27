@@ -5,7 +5,6 @@ import './Clothing.css';
 
 const Clothing = () => {
   const [products, setProducts] = useState([]);
-  // const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedProductId, setSelectedProductId] = useState(null);
 
@@ -19,9 +18,6 @@ const Clothing = () => {
       } catch (err) {
         setError(err.message);
       }
-      // finally {
-      //   setLoading(false);
-      // }
     };
 
     fetchProducts();
@@ -35,7 +31,6 @@ const Clothing = () => {
     setSelectedProductId(null);
   };
 
-  // if (loading) return <div>Loading products...</div>;
   if (error) return <div>Error: {error}</div>;
 
   return (

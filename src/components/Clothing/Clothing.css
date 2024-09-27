@@ -2,6 +2,7 @@
     position: relative;
     padding: 20px;
     box-sizing: border-box;
+    overflow: hidden; /* Prevent overflow */
 }
 
 .product-list {
@@ -9,13 +10,12 @@
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
-    padding: 20px;
-    box-sizing: border-box;
-    justify-content: center;
+    justify-content: center; /* Center align items */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 .product-item {
-    flex: 1 1 calc(25% - 15px);
+    flex: 1 1 calc(25% - 15px); /* Four items per row */
     max-width: calc(25% - 15px);
     background: #fff;
     border: 1px solid #ddd;
@@ -25,6 +25,7 @@
     text-align: center;
     cursor: pointer;
     transition: transform 0.3s ease;
+    box-sizing: border-box; /* Ensure padding/border included in width */
 }
 
 .product-item:hover {
@@ -90,14 +91,14 @@
 
 @media (max-width: 768px) {
     .product-item {
-        flex: 1 1 calc(45% - 15px);
+        flex: 1 1 calc(45% - 15px); /* Two items per row on medium screens */
         max-width: calc(45% - 15px);
     }
 }
 
 @media (max-width: 576px) {
     .product-item {
-        flex: 1 1 calc(100% - 15px);
+        flex: 1 1 calc(100% - 15px); /* One item per row on small screens */
         max-width: calc(100% - 15px);
     }
 

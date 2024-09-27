@@ -48,17 +48,17 @@ function HomePage() {
     <div className="home-page">
       <div className="auth-buttons">
         {!isLoggedIn ? (
-          <>
+          <div className="login-signup-group">
             <Link to="/login" className="login-link">Login</Link>
             <Link to="/register" className="signup-link">Sign Up</Link>
-          </>
+          </div>
         ) : (
-          <>
+          <div className="logged-in-buttons">
             <button className="logout-button" onClick={handleLogout}>Log Out</button>
             <button className="mycart-button" onClick={handleCartClick}>My Cart</button>
             <button className="myinvoice-button" onClick={handleInvoiceClick}>My Invoices</button>
             <button className="myprofile-button" onClick={handleProfileClick}>My Profile</button>
-          </>
+          </div>
         )}
       </div>
       <Clothing className="clothing-component" />

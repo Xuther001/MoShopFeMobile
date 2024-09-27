@@ -1,6 +1,7 @@
 .home-page {
   position: relative;
-  padding: 20px;
+  padding: 10px;
+  overflow-x: hidden;
 }
 
 .auth-buttons {
@@ -8,25 +9,45 @@
   top: 10px;
   right: 10px;
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   z-index: 1000;
 }
 
+.login-signup-group,
+.logged-in-buttons {
+  display: flex;
+  gap: 10px;
+}
+
 .signup-link,
 .login-link,
-.logout-button {
+.logout-button,
+.mycart-button, 
+.myinvoice-button, 
+.myprofile-button {
   display: inline-block;
-  padding: 10px 20px;
+  padding: 12px;
   background-color: #4CAF50;
   color: white;
   text-decoration: none;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   cursor: pointer;
-  white-space: nowrap;
   text-align: center;
   line-height: 1.5;
+  width: auto;
+  max-width: 180px;
+  margin-bottom: 10px;
+}
+
+.logout-button {
+  background-color: #d32f2f;
+}
+
+.mycart-button, .myinvoice-button, .myprofile-button {
+  background-color: #008CBA;
 }
 
 .signup-link:hover,
@@ -38,33 +59,45 @@
   background-color: #f44336;
 }
 
-.logout-button {
-  background-color: #d32f2f;
-  border: none;
-  padding: 10px 20px;
-}
-
-.mycart-button, .myinvoice-button, .myprofile-button {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #008CBA;
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  white-space: nowrap;
-  text-align: center;
-  line-height: 1.5;
-}
-
 .mycart-button:hover,
 .myinvoice-button:hover,
 .myprofile-button:hover {
   background-color: #005f75;
 }
 
-.clothing-component {
-  margin-top: 20px;
+@media (max-width: 768px) {
+  .home-page {
+    padding: 5px;
+  }
+
+  .auth-buttons {
+    top: 5px;
+    right: 5px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .logged-in-buttons {
+    flex-direction: row;
+  }
+
+  .signup-link, .login-link, .logout-button, .mycart-button, .myinvoice-button, .myprofile-button {
+    font-size: 12px;
+    padding: 8px;
+    max-width: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .signup-link, .login-link {
+    display: inline-flex;
+    margin-right: 5px;
+  }
+
+  .signup-link, .login-link, .logout-button, .mycart-button, .myinvoice-button, .myprofile-button {
+    font-size: 10px;
+    padding: 6px;
+    max-width: 120px;
+  }
 }
