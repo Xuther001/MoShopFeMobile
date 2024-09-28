@@ -5,21 +5,18 @@
 }
 
 .auth-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
   position: absolute;
   top: 10px;
-  right: 10px;
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 10px;
+  left: 0;
+  right: 0;
   z-index: 1000;
-  flex-wrap: wrap;
-  justify-content: flex-end;
 }
 
-.login-signup-group,
-.logged-in-buttons {
+.login-signup-group {
   display: flex;
-  flex-wrap: wrap;
   gap: 10px;
 }
 
@@ -52,20 +49,57 @@
   background-color: #f44336;
 }
 
+.sliding-panel {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  overflow-x: hidden;
+  transition: 0.4s;
+  padding-top: 60px;
+  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.sliding-panel.open {
+  width: 250px;
+}
+
+.close-panel-btn {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  font-size: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+}
+
+.sliding-panel ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sliding-panel ul li {
+  padding: 8px 0;
+  font-size: 18px;
+  border-bottom: 1px solid #ccc;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
 @media (max-width: 768px) {
-  .home-page {
-    padding: 5px;
-  }
-
-  .auth-buttons {
-    top: 5px;
-    right: 5px;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: space-between;
-  }
-
   .common-button {
     font-size: 12px;
     padding: 8px;
@@ -74,16 +108,13 @@
 }
 
 @media (max-width: 480px) {
-  .auth-buttons {
-    top: 5px;
-    right: 5px;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-  }
-
   .common-button {
     font-size: 10px;
     padding: 6px;
     max-width: 120px;
+  }
+
+  .sliding-panel ul li {
+    font-size: 16px;
   }
 }

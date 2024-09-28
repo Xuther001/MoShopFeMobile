@@ -66,8 +66,8 @@ const AboutSite = () => {
         For your convenience, here is an already registered account for you to explore the site with:
       </p>
       <ul>
-        <li><strong>Username:</strong> Maiev</li>
-        <li><strong>Password:</strong> 1111</li>
+        <li><strong>Username:</strong> username</li>
+        <li><strong>Password:</strong> password</li>
       </ul>
 
       <h2>Tech Stack</h2>

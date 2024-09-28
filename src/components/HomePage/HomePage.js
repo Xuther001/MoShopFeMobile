@@ -7,6 +7,7 @@ import './HomePage.css';
 function HomePage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState(null);
+  const [isPanelOpen, setIsPanelOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,9 +45,16 @@ function HomePage() {
     }
   };
 
+  const togglePanel = () => {
+    setIsPanelOpen(!isPanelOpen);
+  };
+
   return (
     <div className="home-page">
       <div className="auth-buttons">
+        <button className="common-button category-button" onClick={togglePanel}>
+          &#9776; Categories
+        </button>
         <Link to="/about-site" className="common-button">About Site</Link>
         {!isLoggedIn ? (
           <div className="login-signup-group">
@@ -62,6 +70,19 @@ function HomePage() {
           </div>
         )}
       </div>
+
+      <div className={`sliding-panel ${isPanelOpen ? 'open' : ''}`}>
+        <button className="close-panel-btn" onClick={togglePanel}>
+          &times;
+        </button>
+        <ul>
+          <li>Clothing</li>
+          <li>Footwear</li>
+        </ul>
+      </div>
+
+      {isPanelOpen && <div className="overlay" onClick={togglePanel}></div>}
+
       <Clothing className="clothing-component" />
       <Footwear />
     </div>
