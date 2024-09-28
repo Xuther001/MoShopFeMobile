@@ -4,25 +4,20 @@
   overflow-x: hidden;
 }
 
-.auth-buttons {
+.auth-buttons,
+.logged-in-buttons {
   display: flex;
-  justify-content: center;
-  gap: 10px;
-  position: absolute;
-  top: 10px;
-  left: 0;
-  right: 0;
-  z-index: 1000;
+  justify-content: space-around;
+  margin-bottom: 10px;
 }
 
 .login-signup-group {
   display: flex;
-  gap: 10px;
 }
 
 .common-button {
   display: inline-block;
-  padding: 12px;
+  padding: 8px 12px;
   background-color: #4CAF50;
   color: white;
   text-decoration: none;
@@ -31,10 +26,14 @@
   font-weight: bold;
   cursor: pointer;
   text-align: center;
-  line-height: 1.5;
-  width: auto;
-  max-width: 180px;
-  margin-bottom: 10px;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  margin: 0;
+}
+
+.logged-in-buttons .common-button {
+  padding: 6px 10px;
+  font-size: 12px;
 }
 
 .logout-button {
@@ -43,6 +42,7 @@
 
 .common-button:hover {
   background-color: #45a049;
+  transform: scale(1.05);
 }
 
 .logout-button:hover {
@@ -102,16 +102,14 @@
 @media (max-width: 768px) {
   .common-button {
     font-size: 12px;
-    padding: 8px;
-    max-width: 150px;
+    padding: 6px 10px;
   }
 }
 
 @media (max-width: 480px) {
   .common-button {
     font-size: 10px;
-    padding: 6px;
-    max-width: 120px;
+    padding: 4px 8px;
   }
 
   .sliding-panel ul li {
