@@ -1,37 +1,75 @@
 .clothing-category-container {
-    padding: 20px;
-  }
-  
-  .home-button {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-  }
-  
-  .common-button {
-    display: inline-block;
-    padding: 12px;
-    background-color: #4CAF50;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
-  .product-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.home-button {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.common-button {
+  display: inline-block;
+  padding: 12px 20px;
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.common-button:hover {
+  background-color: #45a049;
+}
+
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.product-item {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  margin: 10px;
+  width: 100px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.product-image {
+  width: 200%;
+  height: auto;
+  transform: scale(1);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+.product-image:hover {
+  transform: scale(0.55);
+}
+
+.product-item h2 {
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
   .product-item {
-    margin: 10px;
-    cursor: pointer;
+    flex: 1 1 calc(45% - 15px);
+    max-width: calc(45% - 15px);
   }
-  
-  .product-image {
-    max-width: 100%;
-    height: auto;
-  }  
+}

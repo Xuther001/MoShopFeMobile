@@ -47,7 +47,7 @@ const ClothingCategory = () => {
             onClick={() => handleProductClick(product.id)}
           >
             <img src={product.imageUrl} alt={product.name} className="product-image" />
-            <h2>{product.name}</h2>
+            <h2 className="product-name">{product.name}</h2>
           </div>
         ))}
       </div>
