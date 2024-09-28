@@ -9,6 +9,8 @@ import MyProfile from './components/MyProfile/MyProfile';
 import PasswordChangeRequest from './components/PasswordChangeRequest/PasswordChangeRequest';
 import ResetPassword from './components/ResetPassword/ResetPassword';
 import AboutSite from './components/AboutSite/AboutSite';
+import ClothingCategory from './components/ClothingCategory/ClothingCategory';
+import FootwearCategory from './components/FootwearCategory/FootwearCategory';
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
         <Route path="/passwordchangerequest" element={<PasswordChangeRequest />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/about-site" element={<AboutSite />} />
+        <Route path="/clothing-category" element={<ClothingCategory />} />
+        <Route path="/footwear-category" element={<FootwearCategory />} /> 
       </Routes>
     </Router>
   );

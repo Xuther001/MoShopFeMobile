@@ -76,14 +76,18 @@ function HomePage() {
           &times;
         </button>
         <ul>
-          <li>Clothing</li>
-          <li>Footwear</li>
+          <li>
+            <Link to="/clothing-category">Clothing</Link>
+          </li>
+          <li>
+            <Link to="/footwear-category">Footwear</Link>
+          </li>
         </ul>
       </div>
 
       {isPanelOpen && <div className="overlay" onClick={togglePanel}></div>}
 
-      <Clothing className="clothing-component" />
+      <Clothing />
       <Footwear />
     </div>
   );
