@@ -52,10 +52,10 @@ function HomePage() {
   return (
     <div className="home-page">
       <div className="auth-buttons">
-        <button className="common-button category-button" onClick={togglePanel}>
+        <button className="common-button" onClick={togglePanel}>
           &#9776; Categories
         </button>
-        <Link to="/about-site" className="common-button">About Site</Link>
+        <button to="/about-site" className="common-button">About Site</button>
         {!isLoggedIn ? (
           <div className="login-signup-group">
             <Link to="/login" className="common-button">Login</Link>
@@ -77,17 +77,17 @@ function HomePage() {
         </button>
         <ul>
           <li>
-            <Link to="/clothing-category">Clothing</Link>
+            <Link to="/clothing-category">Clothing</Link> {/* Link to ClothingCategory */}
           </li>
           <li>
-            <Link to="/footwear-category">Footwear</Link>
+            <Link to="/footwear-category">Footwear</Link> {/* Assuming a similar page exists */}
           </li>
         </ul>
       </div>
 
       {isPanelOpen && <div className="overlay" onClick={togglePanel}></div>}
 
-      <Clothing />
+      <Clothing className="clothing-component" />
       <Footwear />
     </div>
   );
