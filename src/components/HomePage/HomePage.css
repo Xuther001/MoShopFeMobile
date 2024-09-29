@@ -4,49 +4,37 @@
   overflow-x: hidden;
 }
 
-.auth-buttons,
-.logged-in-buttons {
-  display: flex;
-  justify-content: space-around;
+.nav-strip {
+  background-color: navy;
+  padding: 10px;
 }
 
-.login-signup-group {
-  display: flex;
+.nav-strip button {
+  background-color: rgb(6, 6, 186);
+  padding: 10px;
 }
 
-.common-button {
-  display: inline-block;
-  padding: 8px 12px;
-  background-color: #4CAF50;
+.auth-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.auth-links a {
   color: white;
+  font-size: 16px;
   text-decoration: none;
-  border-radius: 5px;
-  font-size: 14px;
   font-weight: bold;
-  cursor: pointer;
-  text-align: center;
-  line-height: 1.5;
-  transition: background-color 0.3s, transform 0.2s;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  margin: 0;
+  padding: 8px 12px;
 }
 
-.logged-in-buttons .common-button {
-  padding: 6px 10px;
-  font-size: 12px;
+.auth-links a:hover {
+  text-decoration: underline;
 }
 
-.logout-button {
-  background-color: #d32f2f;
-}
-
-.common-button:hover {
-  background-color: #45a049;
-  transform: scale(1.05);
-}
-
-.logout-button:hover {
-  background-color: #f44336;
+.categories-button {
+  display: flex;
+  justify-content: center;
 }
 
 .sliding-panel {
@@ -100,16 +88,15 @@
 }
 
 @media (max-width: 768px) {
-  .common-button {
-    font-size: 12px;
-    padding: 6px 10px;
+  .auth-links a {
+    font-size: 14px;
   }
 }
 
 @media (max-width: 480px) {
-  .common-button {
-    font-size: 10px;
-    padding: 4px 8px;
+  .auth-links a {
+    font-size: 12px;
+    padding: 6px 10px;
   }
 
   .sliding-panel ul li {

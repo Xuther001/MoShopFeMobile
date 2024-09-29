@@ -51,24 +51,28 @@ function HomePage() {
 
   return (
     <div className="home-page">
-      <div className="auth-buttons">
-        <button className="common-button" onClick={togglePanel}>
-          &#9776; Categories
-        </button>
-        <button to="/about-site" className="common-button">About Site</button>
-        {!isLoggedIn ? (
-          <div className="login-signup-group">
-            <Link to="/login" className="common-button">Login</Link>
-            <Link to="/register" className="common-button">Sign Up</Link>
-          </div>
-        ) : (
-          <div className="logged-in-buttons">
-            <button className="common-button logout-button" onClick={handleLogout}>Log Out</button>
-            <button className="common-button" onClick={handleCartClick}>My Cart</button>
-            <button className="common-button" onClick={handleInvoiceClick}>My Invoices</button>
-            <button className="common-button" onClick={handleProfileClick}>My Profile</button>
-          </div>
-        )}
+      <div className="nav-strip">
+        <div className="auth-links">
+          <Link to="/about-site">About Site</Link>
+          {!isLoggedIn ? (
+            <>
+              <Link to="/login">Login</Link>
+              <Link to="/register">Sign Up</Link>
+            </>
+          ) : (
+            <>
+              <Link to="/" onClick={handleLogout}>Log Out</Link>
+              <Link to="#" onClick={handleCartClick}>My Cart</Link>
+              <Link to="#" onClick={handleInvoiceClick}>My Invoices</Link>
+              <Link to="#" onClick={handleProfileClick}>My Profile</Link>
+            </>
+          )}
+        </div>
+        <div>
+          <button onClick={togglePanel}>
+            &#9776; View By Category
+          </button>
+        </div>
       </div>
 
       <div className={`sliding-panel ${isPanelOpen ? 'open' : ''}`}>
@@ -77,17 +81,17 @@ function HomePage() {
         </button>
         <ul>
           <li>
-            <Link to="/clothing-category">Clothing</Link> {/* Link to ClothingCategory */}
+            <Link to="/clothing-category">Clothing</Link>
           </li>
           <li>
-            <Link to="/footwear-category">Footwear</Link> {/* Assuming a similar page exists */}
+            <Link to="/footwear-category">Footwear</Link>
           </li>
         </ul>
       </div>
 
       {isPanelOpen && <div className="overlay" onClick={togglePanel}></div>}
 
-      <Clothing className="clothing-component" />
+      <Clothing />
       <Footwear />
     </div>
   );
