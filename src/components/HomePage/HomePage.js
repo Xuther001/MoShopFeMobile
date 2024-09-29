@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Clothing from '../Clothing/Clothing';
 import Footwear from '../Footwear/Footwear';
+import Eyewear from '../Eyewear/Eyewear';
 import './HomePage.css';
 
 function HomePage() {
@@ -92,6 +93,7 @@ function HomePage() {
       {isPanelOpen && <div className="overlay" onClick={togglePanel}></div>}
 
       <Clothing />
+      <Eyewear />
       <Footwear />
     </div>
   );
