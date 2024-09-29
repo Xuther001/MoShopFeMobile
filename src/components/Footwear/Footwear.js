@@ -14,8 +14,12 @@ const Footwear = () => {
       try {
         const response = await axios.get('/api/products');
         const filteredProducts = response.data.filter(product => product.category.id === 11);
-        const sortedProducts = filteredProducts.sort((a, b) => a.id - b.id);
-        setProducts(sortedProducts);
+        
+        const shuffledProducts = filteredProducts.sort(() => 0.5 - Math.random());
+        
+        const selectedProducts = shuffledProducts.slice(0, 4);
+        
+        setProducts(selectedProducts);
       } catch (err) {
         setError(err.message);
       }

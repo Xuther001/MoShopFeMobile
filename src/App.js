@@ -11,6 +11,8 @@ import ResetPassword from './components/ResetPassword/ResetPassword';
 import AboutSite from './components/AboutSite/AboutSite';
 import ClothingCategory from './components/ClothingCategory/ClothingCategory';
 import FootwearCategory from './components/FootwearCategory/FootwearCategory';
+// import Clothing from './components/Clothing/Clothing';
+// import Footwear from './components/Footwear/Footwear';
 
 function App() {
   return (
@@ -26,7 +28,9 @@ function App() {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/about-site" element={<AboutSite />} />
         <Route path="/clothing-category" element={<ClothingCategory />} />
-        <Route path="/footwear-category" element={<FootwearCategory />} /> 
+        <Route path="/footwear-category" element={<FootwearCategory />} />
+        {/* <Route path="/clothing" element={<Clothing />} />
+        <Route path="/footwear" element={<Footwear />} />  */}
       </Routes>
     </Router>
   );
