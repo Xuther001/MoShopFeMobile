@@ -1,55 +1,73 @@
 .home-page {
-  position: relative;
-  padding: 10px;
+  padding: 120px 10px 10px;
   overflow-x: hidden;
+  position: relative;
 }
 
 .nav-strip {
   background-color: navy;
-  padding: 10px 0;
+  padding: 0;
   width: 100vw;
   margin: 0;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-}
-
-.nav-strip button {
-  background-color: rgb(6, 6, 186);
-  padding: 10px;
-  border: none;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
+  z-index: 1000;
+  min-height: 60px;
 }
 
 .auth-links {
   display: flex;
   justify-content: center;
   gap: 20px;
+  align-items: center;
+  padding: 8px 0;
 }
 
-.auth-links a {
+.auth-links a,
+.auth-links span {
   color: white;
   font-size: 16px;
   text-decoration: none;
   font-weight: bold;
   padding: 8px 12px;
   transition: text-decoration 0.2s;
+  line-height: 1.5;
 }
 
-.auth-links a:hover {
+.auth-links.logged-in a,
+.auth-links.logged-in span {
+  font-size: 14px;
+  padding: 2px 0;
+  padding-left: 8px;
+}
+
+.auth-links a:hover,
+.auth-links span:hover {
   text-decoration: underline;
 }
 
-.auth-links span {
-  color: white;
-
-}
-
-.categories-button {
+.categories-strip {
+  background-color: rgb(6, 6, 186);
+  padding: 10px 0;
+  width: 100vw;
+  margin: 0;
+  position: fixed;
+  top: 55px;
+  left: 0;
+  z-index: 1000;
   display: flex;
   justify-content: center;
+}
+
+.categories-strip button {
+  background-color: rgb(6, 6, 186);
+  border: none;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 0px 20px;
 }
 
 .sliding-panel {
@@ -120,5 +138,5 @@
 }
 
 .products {
-  margin-top: 50px;
+  margin-top: 100px;
 }

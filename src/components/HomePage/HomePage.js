@@ -53,8 +53,10 @@ function HomePage() {
   return (
     <div className="home-page">
       <div className="nav-strip">
-        <div className="auth-links">
-          <Link to="/about-site">About Site</Link>
+        <div className={`auth-links ${isLoggedIn ? 'logged-in' : ''}`}>
+          <span className="about-site">
+            <Link to="/about-site">About Site</Link>
+          </span>
           {!isLoggedIn ? (
             <>
               <Link to="/login">Login</Link>
@@ -62,18 +64,19 @@ function HomePage() {
             </>
           ) : (
             <>
-              <Link to="/" onClick={handleLogout}>Log Out</Link>
-              <span onClick={handleCartClick} style={{ cursor: 'pointer' }}>My Cart</span>
-              <span onClick={handleInvoiceClick} style={{ cursor: 'pointer' }}>My Invoices</span>
-              <span onClick={handleProfileClick} style={{ cursor: 'pointer' }}>My Profile</span>
+              <span onClick={handleLogout}>Log Out</span>
+              <span onClick={handleCartClick}>My Cart</span>
+              <span onClick={handleInvoiceClick}>My Invoices</span>
+              <span onClick={handleProfileClick}>My Profile</span>
             </>
           )}
         </div>
-        <div>
-          <button onClick={togglePanel}>
-            &#9776; View By Category
-          </button>
-        </div>
+      </div>
+
+      <div className="categories-strip">
+        <button onClick={togglePanel}>
+          &#9776; View By Category
+        </button>
       </div>
 
       <div className={`sliding-panel ${isPanelOpen ? 'open' : ''}`}>
