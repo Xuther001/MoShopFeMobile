@@ -98,11 +98,11 @@ function HomePage() {
         </ul>
       </div>
 
-      {isPanelOpen && <div className="overlay" onClick={togglePanel}></div>}
+      {isPanelOpen && <div onClick={togglePanel}></div>}
       <div className="products">
         <Clothing />
-        <Eyewear />
-        <Footwear />
+        <Eyewear className="eyewear"/>
+        <Footwear classname="footwear"/>
       </div>
     </div>
   );

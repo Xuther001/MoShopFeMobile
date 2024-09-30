@@ -129,16 +129,6 @@
   text-decoration: underline;
 }
 
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999;
-}
-
 @media (max-width: 768px) {
   .auth-links a {
     font-size: 14px;
@@ -157,5 +147,17 @@
 }
 
 .products {
-  margin-top: 50px;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
 }
+
+.products > div {
+  margin-bottom: 0px;
+  padding: 0px;
+}
+
+/* .eyewear, .footwear {
+  margin: 100;
+  padding: 0px;
+} */
