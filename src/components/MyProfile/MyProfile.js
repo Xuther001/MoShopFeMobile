@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from '../../configs/axiosConfig';
 import EditAddress from './EditAddress';
 import './MyProfile.css';
@@ -11,7 +11,6 @@ const MyProfile = () => {
   const [currentAddress, setCurrentAddress] = useState(null);
   const userId = localStorage.getItem('userId');
   const token = localStorage.getItem('token');
-  const navigate = useNavigate();
 
   const fetchAddresses = useCallback(async () => {
     try {
@@ -54,16 +53,16 @@ const MyProfile = () => {
     setCurrentAddress(null);
   };
 
-  const handleHomePageClick = () => {
-    navigate('/');
-  };
-
   if (error) {
     return <div className="error-message">Error: {error}</div>;
   }
 
   return (
     <div className="profile-container">
+      <div className="nav-strip">
+        <Link to="/" className="home-link">Home Page</Link>
+      </div>
+
       <h1>My Profile</h1>
       {isEditing ? (
         <EditAddress 
@@ -73,7 +72,7 @@ const MyProfile = () => {
         />
       ) : (
         <div>
-          <h2>Addresses</h2>
+          <h2>Address</h2>
           {addresses.length > 0 && addresses.map((address) => (
             <div className="address-card" key={address.id}>
               <div className="address-details">
@@ -103,7 +102,6 @@ const MyProfile = () => {
           ))}
         </div>
       )}
-      <button className="home-button" onClick={handleHomePageClick}>Home Page</button> {/* Home Page button */}
     </div>
   );
 };

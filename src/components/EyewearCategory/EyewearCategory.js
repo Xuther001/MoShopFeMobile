@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import axios from '../../configs/axiosConfig';
 import ProductDetails from '../ProductDetails/ProductDetails';
 import { Link } from 'react-router-dom';
-import './FootwearCategory.css';
+import './EyewearCategory.css';
 
-const FootwearCategory = () => {
+const EyewearCategory = () => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
   const [selectedProductId, setSelectedProductId] = useState(null);
@@ -13,7 +13,7 @@ const FootwearCategory = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get('/api/products');
-        const filteredProducts = response.data.filter(product => product.category.id === 11);
+        const filteredProducts = response.data.filter(product => product.category.id === 21);
         const sortedProducts = filteredProducts.sort((a, b) => a.id - b.id);
         setProducts(sortedProducts);
       } catch (err) {
@@ -35,7 +35,7 @@ const FootwearCategory = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="footwear-category-container">
+    <div className="eyewear-category-container">
       <div className="nav-strip">
         <Link to="/" className="home-link">Home Page</Link>
       </div>
@@ -59,4 +59,4 @@ const FootwearCategory = () => {
   );
 };
 
-export default FootwearCategory;
+export default EyewearCategory;

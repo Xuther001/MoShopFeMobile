@@ -104,6 +104,9 @@ const Register = () => {
 
   return (
     <div className="registration-container">
+      <div className="nav-strip">
+        <Link to="/" className="home-link">Home Page</Link>
+      </div>
       <h2>Register</h2>
       {message && (
         <>
@@ -211,7 +214,6 @@ const Register = () => {
 
         <button type="submit">Register</button>
       </form>
-      <Link to="/" className="home-page-button">Home Page</Link>
     </div>
   );
 };

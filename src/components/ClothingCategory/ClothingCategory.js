@@ -36,8 +36,8 @@ const ClothingCategory = () => {
 
   return (
     <div className="clothing-category-container">
-      <div className="home-button">
-        <Link to="/" className="common-button">Home Page</Link>
+      <div className="nav-strip">
+        <Link to="/" className="home-link">Home Page</Link>
       </div>
       <div className="product-list">
         {products.map((product) => (

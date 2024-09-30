@@ -1,56 +1,69 @@
 .my-invoice-container {
-  padding: 20px;
+  padding-top: 50px;
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 800px;
   margin: 0 auto;
 }
-  
-  .invoice-card {
-    background-color: #fff;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .invoice-card h3 {
-    margin-top: 0;
-  }
-  
-  .invoice-items ul {
-    list-style-type: none;
-    padding-left: 0;
-  }
-  
-  .invoice-items li {
-    margin-bottom: 5px;
-  }  
 
-  .centered-message {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 1.2em;
-  }
+.nav-strip {
+  background-color: navy;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px; /* Add some space below the nav strip */
+}
 
-  .home-page-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 20px;
-    font-size: 1em;
-    transition: background-color 0.2s ease;
-    display: inline-block;
-    width: auto;
-  }
-  
-  .home-page-button:hover {
-    background-color: #45a049;
-  }
-  
-  
-  
+.home-link {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.invoice-card {
+  background-color: #fff;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.invoice-card h3 {
+  margin-top: 0;
+}
+
+.invoice-items ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.invoice-items li {
+  margin-bottom: 5px;
+}
+
+.centered-message {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1.2em;
+}
+
+.home-page-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  font-size: 1em;
+  transition: background-color 0.2s ease;
+  display: inline-block;
+  width: auto;
+}
+
+.home-page-button:hover {
+  background-color: #45a049;
+}

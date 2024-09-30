@@ -12,7 +12,7 @@ const Eyewear = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get('/api/products');
-        const filteredProducts = response.data.filter(product => product.category.id === 3);
+        const filteredProducts = response.data.filter(product => product.category.id === 21);
         setProducts(filteredProducts);
       } catch (err) {
         setError(err.message);

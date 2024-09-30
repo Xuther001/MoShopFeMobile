@@ -117,6 +117,9 @@ function MyCart() {
 
   return (
     <div className="my-cart-container">
+      <div className="nav-strip">
+        <Link to="/" className="home-link">Home Page</Link>
+      </div>
       <h2>My Cart</h2>
       {cartItems.length > 0 ? (
         <>
@@ -160,7 +163,6 @@ function MyCart() {
       ) : (
         <p className="empty-cart-message">Your cart is empty.</p>
       )}
-      <Link to="/" className="home-page-button">Home Page</Link> {/* Home Page button */}
     </div>
   );
 }

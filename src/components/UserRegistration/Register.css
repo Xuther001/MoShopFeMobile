@@ -78,3 +78,18 @@
 .success-message {
   color: #4CAF50;
 }
+
+.nav-strip {
+  background-color: navy;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-link {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+}

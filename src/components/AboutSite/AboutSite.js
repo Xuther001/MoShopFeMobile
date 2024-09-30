@@ -1,9 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './AboutSite.css';
 
 const AboutSite = () => {
   return (
     <div className="about-site">
+      <div className="nav-strip">
+        <Link to="/" className="home-link">Home Page</Link>
+      </div>
       <h1>Goal: Develop a Functional E-commerce Website</h1>
       <h2>Accessing the URL</h2>
       <ul>

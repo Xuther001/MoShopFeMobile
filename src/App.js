@@ -11,6 +11,7 @@ import ResetPassword from './components/ResetPassword/ResetPassword';
 import AboutSite from './components/AboutSite/AboutSite';
 import ClothingCategory from './components/ClothingCategory/ClothingCategory';
 import FootwearCategory from './components/FootwearCategory/FootwearCategory';
+import EyewearCategory from './components/EyewearCategory/EyewearCategory';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/about-site" element={<AboutSite />} />
         <Route path="/clothing-category" element={<ClothingCategory />} />
         <Route path="/footwear-category" element={<FootwearCategory />} />
+        <Route path="/eyewear-category" element={<EyewearCategory />} />
       </Routes>
     </Router>
   );

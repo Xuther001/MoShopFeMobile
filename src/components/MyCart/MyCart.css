@@ -1,17 +1,20 @@
 .my-cart-container {
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 800px;
-  margin: 0 auto;
+  padding-top: 50px;
 }
 
-.my-cart-container h2 {
-  font-size: 2em;
-  color: #333;
-  margin-bottom: 20px;
-  text-align: center;
+.nav-strip {
+  background-color: navy;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-link {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .cart-item {
@@ -107,19 +110,17 @@
   background-color: #c62828;
 }
 
-.home-page-button {
-  display: inline-block;
-  padding: 10px 20px;
-  margin-top: 20px;
+.checkout-button {
   background-color: #4CAF50;
   color: white;
-  text-decoration: none;
+  border: none;
+  padding: 10px;
   border-radius: 5px;
-  text-align: center;
   cursor: pointer;
+  margin-top: 20px;
   transition: background-color 0.2s ease;
 }
 
-.home-page-button:hover {
+.checkout-button:hover {
   background-color: #45a049;
 }

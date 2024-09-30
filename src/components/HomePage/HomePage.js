@@ -81,7 +81,7 @@ function HomePage() {
 
       <div className={`sliding-panel ${isPanelOpen ? 'open' : ''}`}>
         <button className="close-panel-btn" onClick={togglePanel}>
-          &times;
+          Close
         </button>
         <ul>
           <li>
