@@ -1,5 +1,5 @@
 .home-page {
-  padding: 120px 10px 10px;
+  padding: 0px 10px 10px;
   overflow-x: hidden;
   position: relative;
 }
@@ -138,5 +138,5 @@
 }
 
 .products {
-  margin-top: 100px;
+  margin-top: 50px;
 }
