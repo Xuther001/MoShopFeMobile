@@ -11,7 +11,7 @@ const ProductDetails = ({ productId, onClose }) => {
   const [canReview, setCanReview] = useState(false);
   const [hasReviewed, setHasReviewed] = useState(false);
   const [rating, setRating] = useState(0);
-  const [hoverRating, setHoverRating] = useState(0); // Track hover state
+  const [hoverRating, setHoverRating] = useState(0);
   const username = localStorage.getItem('username');
   const token = localStorage.getItem('token');
 
@@ -20,6 +20,8 @@ const ProductDetails = ({ productId, onClose }) => {
       try {
         const productResponse = await axios.get(`/api/products/${productId}`);
         setProduct(productResponse.data);
+
+        console.log('Product:', productResponse.data);
 
         const reviewsResponse = await axios.get(`/api/products/${productId}/reviews`);
         setReviews(reviewsResponse.data);
@@ -98,9 +100,12 @@ const ProductDetails = ({ productId, onClose }) => {
   return (
     <div className="product-details">
       <button className="close-button" onClick={onClose}>Close</button>
+      
+      {product.imageUrl && <img src={product.imageUrl} alt={product.name} className="product-image" />}
+      
       <h2>{product.name}</h2>
       <p>{product.description}</p>
-      <p>Price: ${product.price}</p>
+      <p>Price: ${product.price.toFixed(2)}</p>
       <p className={product.stock <= 100 ? "low-stock" : ""}>
         Stock: {product.stock} <span className="left-text">left</span>
       </p>
@@ -112,7 +117,7 @@ const ProductDetails = ({ productId, onClose }) => {
           id="quantity"
           name="quantity"
           value={quantity}
-          onChange={(e) => setQuantity(parseInt(e.target.value))}
+          onChange={(e) => setQuantity(Math.min(parseInt(e.target.value), product.stock) || 1)}
           min="1"
           max={product.stock}
         />
@@ -128,7 +133,7 @@ const ProductDetails = ({ productId, onClose }) => {
             handleReviewSubmit({
               productId,
               username,
-              rating: rating,
+              rating,
               comment: e.target.comment.value
             });
           }}>
