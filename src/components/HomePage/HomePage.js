@@ -46,6 +46,10 @@ function HomePage() {
     }
   };
 
+  const handleAboutClick = () => {
+    navigate('/about-site');
+  };
+
   const togglePanel = () => {
     setIsPanelOpen(!isPanelOpen);
   };
@@ -54,13 +58,11 @@ function HomePage() {
     <div className="home-page">
       <div className="nav-strip">
         <div className={`auth-links ${isLoggedIn ? 'logged-in' : ''}`}>
-          <span className="about-site">
-            <Link to="/about-site">About Site</Link>
-          </span>
+          <span className="about-site" onClick={handleAboutClick}>About Site</span>
           {!isLoggedIn ? (
             <>
-              <Link to="/login">Login</Link>
-              <Link to="/register">Sign Up</Link>
+              <span onClick={() => navigate('/login')}>Login</span>
+              <span onClick={() => navigate('/register')}>Sign Up</span>
             </>
           ) : (
             <>

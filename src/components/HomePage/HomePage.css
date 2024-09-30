@@ -21,7 +21,7 @@
   justify-content: center;
   gap: 20px;
   align-items: center;
-  padding: 8px 0;
+  padding-left: 8px;
 }
 
 .auth-links a,
