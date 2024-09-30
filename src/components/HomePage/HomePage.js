@@ -63,9 +63,9 @@ function HomePage() {
           ) : (
             <>
               <Link to="/" onClick={handleLogout}>Log Out</Link>
-              <Link to="#" onClick={handleCartClick}>My Cart</Link>
-              <Link to="#" onClick={handleInvoiceClick}>My Invoices</Link>
-              <Link to="#" onClick={handleProfileClick}>My Profile</Link>
+              <span onClick={handleCartClick} style={{ cursor: 'pointer' }}>My Cart</span>
+              <span onClick={handleInvoiceClick} style={{ cursor: 'pointer' }}>My Invoices</span>
+              <span onClick={handleProfileClick} style={{ cursor: 'pointer' }}>My Profile</span>
             </>
           )}
         </div>
@@ -87,14 +87,18 @@ function HomePage() {
           <li>
             <Link to="/footwear-category">Footwear</Link>
           </li>
+          <li>
+            <Link to="/eyewear-category">Eyewear</Link>
+          </li>
         </ul>
       </div>
 
       {isPanelOpen && <div className="overlay" onClick={togglePanel}></div>}
-
-      <Clothing />
-      <Eyewear />
-      <Footwear />
+      <div className="products">
+        <Clothing />
+        <Eyewear />
+        <Footwear />
+      </div>
     </div>
   );
 }

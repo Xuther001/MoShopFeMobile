@@ -6,12 +6,21 @@
 
 .nav-strip {
   background-color: navy;
-  padding: 10px;
+  padding: 10px 0;
+  width: 100vw;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .nav-strip button {
   background-color: rgb(6, 6, 186);
   padding: 10px;
+  border: none;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .auth-links {
@@ -26,10 +35,16 @@
   text-decoration: none;
   font-weight: bold;
   padding: 8px 12px;
+  transition: text-decoration 0.2s;
 }
 
 .auth-links a:hover {
   text-decoration: underline;
+}
+
+.auth-links span {
+  color: white;
+
 }
 
 .categories-button {
@@ -45,7 +60,7 @@
   left: 0;
   background-color: #fff;
   overflow-x: hidden;
-  transition: 0.4s;
+  transition: width 0.4s;
   padding-top: 60px;
   box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.5);
   z-index: 1000;
@@ -102,4 +117,8 @@
   .sliding-panel ul li {
     font-size: 16px;
   }
+}
+
+.products {
+  margin-top: 50px;
 }
