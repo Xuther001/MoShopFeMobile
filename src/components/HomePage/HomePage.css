@@ -5,7 +5,7 @@
 }
 
 .nav-strip {
-  background-color: navy;
+  background-color: rgb(28, 82, 190) !important;
   padding: 0;
   width: 100vw;
   margin: 0;
@@ -48,7 +48,7 @@
 }
 
 .categories-strip {
-  background-color: rgb(6, 6, 186);
+  background-color: rgb(78, 122, 230);
   padding: 10px 0;
   width: 100vw;
   margin: 0;
@@ -60,23 +60,13 @@
   justify-content: center;
 }
 
-.categories-strip button {
-  background-color: rgb(6, 6, 186);
-  border: none;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 12px;
-  padding: 0px 20px;
-}
-
 .sliding-panel {
   height: 100%;
   width: 0;
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #061c99;
+  background-color: rgb(128, 162, 255);
   overflow-x: hidden;
   transition: width 0.4s;
   padding-top: 60px;
@@ -157,7 +147,11 @@
   padding: 0px;
 }
 
-/* .eyewear, .footwear {
-  margin: 100;
-  padding: 0px;
-} */
+.category-link {
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.category-link:hover {
+  text-decoration: none;
+}

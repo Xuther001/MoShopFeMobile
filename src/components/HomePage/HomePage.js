@@ -76,9 +76,9 @@ function HomePage() {
       </div>
 
       <div className="categories-strip">
-        <button onClick={togglePanel}>
+        <span className="category-link" onClick={togglePanel}>
           &#9776; View By Category
-        </button>
+        </span>
       </div>
 
       <div className={`sliding-panel ${isPanelOpen ? 'open' : ''}`}>
@@ -101,8 +101,8 @@ function HomePage() {
       {isPanelOpen && <div onClick={togglePanel}></div>}
       <div className="products">
         <Clothing />
-        <Eyewear className="eyewear"/>
-        <Footwear classname="footwear"/>
+        <Eyewear />
+        <Footwear />
       </div>
     </div>
   );

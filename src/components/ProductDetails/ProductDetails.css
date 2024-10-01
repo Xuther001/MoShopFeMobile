@@ -12,6 +12,7 @@
   max-width: 600px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
+  white-space: wrap;
   max-height: 80%;
 }
 

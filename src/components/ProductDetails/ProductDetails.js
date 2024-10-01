@@ -21,8 +21,6 @@ const ProductDetails = ({ productId, onClose }) => {
         const productResponse = await axios.get(`/api/products/${productId}`);
         setProduct(productResponse.data);
 
-        console.log('Product:', productResponse.data);
-
         const reviewsResponse = await axios.get(`/api/products/${productId}/reviews`);
         setReviews(reviewsResponse.data);
 
